@@ -30,7 +30,6 @@ public class User {
         this.fullName = fullName;
         this.address = address;
         this.phone = phone;
-    }
 
     public String getUsername() {
         return username;
