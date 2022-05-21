@@ -2,18 +2,18 @@ package com.work.teammanagement.model;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.work.teammanagement.model.serializing.UserTypeFromStrConverter;
-import com.work.teammanagement.model.serializing.UserTypeToStrConverter;
-import com.work.teammanagement.model.types.UserType;
+import com.work.teammanagement.model.serializing.UserRoleFromStrConverter;
+import com.work.teammanagement.model.serializing.UserRoleToStrConverter;
+import com.work.teammanagement.model.types.UserRole;
 
 import static com.work.teammanagement.services.EncodingService.encodePassword;
 
 public class User {
     private String username;
     private String passwordHash;
-    @JsonSerialize(converter = UserTypeToStrConverter.class)
-    @JsonDeserialize(converter = UserTypeFromStrConverter.class)
-    private UserType role;
+    @JsonSerialize(converter = UserRoleToStrConverter.class)
+    @JsonDeserialize(converter = UserRoleFromStrConverter.class)
+    private UserRole role;
     private String fullName;
     private String address;
     private String phone;
@@ -23,7 +23,7 @@ public class User {
     public User() {
     }
 
-    public User(String username, String password, UserType role, String fullName, String address, String phone) {
+    public User(String username, String password, UserRole role, String fullName, String address, String phone) {
         this.username = username;
         this.passwordHash = encodePassword(username, password);
         this.role = role;
@@ -40,7 +40,7 @@ public class User {
         return passwordHash;
     }
 
-    public UserType getRole() {
+    public UserRole getRole() {
         return role;
     }
 
@@ -68,7 +68,7 @@ public class User {
         return role.equals(user.role);
     }
 
-    public boolean equals(String username, String password, UserType role) {
+    public boolean equals(String username, String password, UserRole role) {
         if (!this.username.equals(username)) return false;
         if (!passwordHash.equals(encodePassword(username, password))) return false;
         return this.role == role;
