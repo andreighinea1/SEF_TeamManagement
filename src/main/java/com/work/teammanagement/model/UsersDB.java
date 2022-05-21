@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.work.teammanagement.exceptions.UserNotFoundException;
 import com.work.teammanagement.exceptions.UsernameAlreadyExistsException;
+import com.work.teammanagement.model.types.User;
 import com.work.teammanagement.model.types.UserRole;
 
 import java.io.File;
@@ -16,15 +17,17 @@ public final class UsersDB {
     private static final String dbName = "UsersDB.json";
 
 
-    public static void addUser(User newUser) throws UsernameAlreadyExistsException {
+    public static User addUser(User newUser) throws UsernameAlreadyExistsException {
         checkUsernameExists(newUser.getUsername());
         users.add(newUser);
-        saveUsersDB(); // Not perfect as it saves the whole DB, but it is what it is
+        saveUsersDB(); // TODO: Not perfect as it saves the whole DB, but it is what it is
+
+        return newUser;
     }
 
-    public static void addUser(String username, String password, UserRole role, String fullName, String address,
+    public static User addUser(String username, String password, UserRole role, String fullName, String address,
                                String phone) throws UsernameAlreadyExistsException {
-        addUser(new User(username, password, role, fullName, address, phone));
+        return addUser(new User(username, password, role, fullName, address, phone));
     }
 
     private static void checkUsernameExists(String username) throws UsernameAlreadyExistsException {
@@ -55,7 +58,7 @@ public final class UsersDB {
         }
     }
 
-    private static void saveUsersDB() {
+    public static void saveUsersDB() {
         try {
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(dbName), users);
         } catch (IOException e) {

@@ -1,7 +1,10 @@
 package com.work.teammanagement;
 
-import com.work.teammanagement.model.User;
+import com.work.teammanagement.model.types.EmployeeRequest;
+import com.work.teammanagement.model.types.User;
 import com.work.teammanagement.model.types.UserRole;
+
+import java.util.ArrayList;
 
 public final class LoggedInUser {
     private static User user;
@@ -51,6 +54,10 @@ public final class LoggedInUser {
 
     public static String getPhone() {
         return user.getPhone();
+    }
+
+    public static ArrayList<EmployeeRequest> getRequests() {
+        return user.getRequests();
     }
 
     public static void print() {

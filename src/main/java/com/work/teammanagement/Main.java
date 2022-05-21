@@ -15,6 +15,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+        UsersDB.loadUsersDB();
+
         primaryStage.setResizable(false);
         primaryStage.setTitle("Team Management");
 

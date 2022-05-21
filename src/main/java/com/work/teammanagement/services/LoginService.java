@@ -2,7 +2,7 @@ package com.work.teammanagement.services;
 
 import com.work.teammanagement.LoggedInUser;
 import com.work.teammanagement.exceptions.UserNotFoundException;
-import com.work.teammanagement.model.User;
+import com.work.teammanagement.model.types.User;
 import com.work.teammanagement.model.UsersDB;
 import com.work.teammanagement.model.types.UserRole;
 
