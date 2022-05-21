@@ -1,7 +1,6 @@
 package com.work.teammanagement;
 
 import com.work.teammanagement.model.UsersDB;
-import com.work.teammanagement.model.types.UserType;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -16,12 +15,15 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+//        UsersDB.testDB();
+
         instance = this;
 
         primaryStage.setResizable(false);
         primaryStage.setTitle("Team Management");
 
-        Parent root = FXMLLoader.load(getClass().getResource("login-view.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("login-view.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("test-page.fxml"));
         scene = new Scene(root, 800, 600);
         primaryStage.setScene(scene);
         primaryStage.show();

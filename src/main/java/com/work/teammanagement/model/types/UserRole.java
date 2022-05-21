@@ -1,5 +1,5 @@
 package com.work.teammanagement.model.types;
 
-public enum UserType {
+public enum UserRole {
     GeneralUser, Manager
 }
