@@ -22,7 +22,8 @@ public class Main extends Application {
         primaryStage.setResizable(false);
         primaryStage.setTitle("Team Management");
 
-        Parent root = FXMLLoader.load(getClass().getResource("login-view.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("login-view.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("test-page.fxml"));
         scene = new Scene(root, 800, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
