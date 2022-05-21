@@ -1,6 +1,5 @@
 package com.work.teammanagement.model;
 
-import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.work.teammanagement.exceptions.UsernameAlreadyExistsException;
@@ -50,8 +49,7 @@ public final class UsersDB {
         }
     }
 
-    @Override
-    public String toString() {
-        return users.toString();
+    public static void print() {
+        System.out.println(users.toString());
     }
 }

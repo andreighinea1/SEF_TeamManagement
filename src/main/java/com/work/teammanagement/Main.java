@@ -1,9 +1,5 @@
 package com.work.teammanagement;
 
-import com.work.teammanagement.exceptions.UsernameAlreadyExistsException;
-import com.work.teammanagement.model.User;
-import com.work.teammanagement.model.UsersDB;
-import com.work.teammanagement.model.types.UserType;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -18,22 +14,15 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-        try {
-            UsersDB.addUser(new User("abc", "123456", UserType.Manager));
-        } catch (UsernameAlreadyExistsException e) {
-            throw new RuntimeException(e);
-        }
-        UsersDB.loadUsersDB();
+        instance = this;
 
-//        instance = this;
-//
-//        primaryStage.setResizable(false);
-//        primaryStage.setTitle("Team Management");
-//
-//        Parent root = FXMLLoader.load(getClass().getResource("login-view.fxml"));
-//        scene = new Scene(root, 800, 600);
-//        primaryStage.setScene(scene);
-//        primaryStage.show();
+        primaryStage.setResizable(false);
+        primaryStage.setTitle("Team Management");
+
+        Parent root = FXMLLoader.load(getClass().getResource("login-view.fxml"));
+        scene = new Scene(root, 800, 600);
+        primaryStage.setScene(scene);
+        primaryStage.show();
     }
 
     public static void changeScene(String fxml) {
