@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="421.0" prefWidth="625.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ParallelCamera />
+      <AmbientLight color="CHARTREUSE" lightOn="true" />
+      <AnchorPane layoutY="-5.0" prefHeight="387.0" prefWidth="581.0">
+         <children>
+            <ImageView fitHeight="450.0" fitWidth="625.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Downloads/WhatsApp%20Image%202022-05-21%20at%2019.17.14.jpeg" />
+               </image>
+            </ImageView>
+            <Label layoutX="125.0" layoutY="52.0" prefHeight="52.0" prefWidth="331.0" text="REGISTER  PAGE" textFill="WHITE">
+               <font>
+                  <Font size="42.0" />
+               </font>
+            </Label>
+            <Label layoutX="292.0" layoutY="149.0" prefHeight="23.0" prefWidth="93.0" text="USERNAME" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField layoutX="394.0" layoutY="278.0" />
+            <Label layoutX="290.0" layoutY="182.0" text="PASSWORD" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <PasswordField layoutX="394.0" layoutY="147.0" />
+            <Label layoutX="291.0" layoutY="215.0" text="FULL NAME" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="298.0" layoutY="248.0" text=" ADDRESS" textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="293.0" layoutY="280.0" text="PHONE NO." textFill="WHITE">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Label>
+            <TextField layoutX="394.0" layoutY="180.0" />
+            <TextField layoutX="394.0" layoutY="213.0" />
+            <TextField layoutX="394.0" layoutY="246.0" />
+            <Button layoutX="39.0" layoutY="353.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="196.0" text="GO TO LOGIN PAGE ">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Button>
+            <Label layoutX="33.0" layoutY="319.0" text="Already have an account? " textFill="WHITE">
+               <font>
+                  <Font size="19.0" />
+               </font>
+            </Label>
+            <Button layoutX="419.0" layoutY="353.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="116.0" text="EXIT" />
+            <ChoiceBox layoutX="40.0" layoutY="214.0" prefHeight="27.0" prefWidth="179.0" />
+            <Label layoutX="36.0" layoutY="180.0" text="Choose wanted  role" textFill="WHITE">
+               <font>
+                  <Font size="21.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</Pane>
