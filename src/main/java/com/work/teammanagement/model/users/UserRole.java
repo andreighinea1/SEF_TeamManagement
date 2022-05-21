@@ -1,4 +1,4 @@
-package com.work.teammanagement.model.types;
+package com.work.teammanagement.model.users;
 
 public enum UserRole {
     Employee, Manager

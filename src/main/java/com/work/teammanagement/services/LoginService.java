@@ -2,9 +2,9 @@ package com.work.teammanagement.services;
 
 import com.work.teammanagement.LoggedInUser;
 import com.work.teammanagement.exceptions.UserNotFoundException;
-import com.work.teammanagement.model.types.User;
+import com.work.teammanagement.model.users.User;
 import com.work.teammanagement.model.UsersDB;
-import com.work.teammanagement.model.types.UserRole;
+import com.work.teammanagement.model.users.UserRole;
 
 public final class LoginService {
     public static void loginUser(String username, String password, UserRole role) throws UserNotFoundException {

@@ -4,8 +4,8 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.work.teammanagement.exceptions.UserNotFoundException;
 import com.work.teammanagement.exceptions.UsernameAlreadyExistsException;
-import com.work.teammanagement.model.types.User;
-import com.work.teammanagement.model.types.UserRole;
+import com.work.teammanagement.model.users.User;
+import com.work.teammanagement.model.users.UserRole;
 
 import java.io.File;
 import java.io.IOException;

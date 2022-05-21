@@ -1,8 +1,8 @@
 package com.work.teammanagement;
 
-import com.work.teammanagement.model.types.EmployeeRequest;
-import com.work.teammanagement.model.types.User;
-import com.work.teammanagement.model.types.UserRole;
+import com.work.teammanagement.requests.EmployeeRequest;
+import com.work.teammanagement.model.users.User;
+import com.work.teammanagement.model.users.UserRole;
 
 import java.util.ArrayList;
 

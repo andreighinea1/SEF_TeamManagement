@@ -3,7 +3,7 @@ package com.work.teammanagement;
 import com.work.teammanagement.exceptions.UserNotFoundException;
 import com.work.teammanagement.exceptions.UsernameAlreadyExistsException;
 import com.work.teammanagement.model.UsersDB;
-import com.work.teammanagement.model.types.UserRole;
+import com.work.teammanagement.model.users.UserRole;
 import com.work.teammanagement.services.LoginService;
 import com.work.teammanagement.services.RegisterService;
 
