@@ -6,7 +6,8 @@ import com.work.teammanagement.model.UsersDB;
 import com.work.teammanagement.model.types.UserType;
 
 public class RegisterService {
-    public static void registerUser(String username, String password, UserType role) throws UsernameAlreadyExistsException {
-        UsersDB.addUser(new User(username, password, role));
+    public static void registerUser(String username, String password, UserType role, String fullName, String address,
+                                    String phone) throws UsernameAlreadyExistsException {
+        UsersDB.addUser(username, password, role, fullName, address, phone);
     }
 }

@@ -1,5 +1,7 @@
 package com.work.teammanagement;
 
+import com.work.teammanagement.model.UsersDB;
+import com.work.teammanagement.model.types.UserType;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;

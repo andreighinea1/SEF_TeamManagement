@@ -14,16 +14,22 @@ public class User {
     @JsonSerialize(converter = UserTypeToStrConverter.class)
     @JsonDeserialize(converter = UserTypeFromStrConverter.class)
     private UserType role;
+    private String fullName;
+    private String address;
+    private String phone;
 
 
     // This empty constructor is needed for JSON (just like the unused getters)
     public User() {
     }
 
-    public User(String username, String password, UserType role) {
+    public User(String username, String password, UserType role, String fullName, String address, String phone) {
         this.username = username;
         this.passwordHash = encodePassword(username, password);
         this.role = role;
+        this.fullName = fullName;
+        this.address = address;
+        this.phone = phone;
     }
 
     public String getUsername() {
@@ -36,6 +42,18 @@ public class User {
 
     public UserType getRole() {
         return role;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getPhone() {
+        return phone;
     }
 
     @Override
@@ -60,8 +78,11 @@ public class User {
     public String toString() {
         return "User{" +
                 "username='" + username + '\'' +
-                ", passwordHash='" + passwordHash + '\'' +
+                ", passwordHash='some_hash'" +
                 ", role=" + role +
+                ", fullName='" + fullName + '\'' +
+                ", address='" + address + '\'' +
+                ", phone='" + phone + '\'' +
                 '}';
     }
 }
