@@ -6,35 +6,50 @@ import com.work.teammanagement.model.types.UserRole;
 public final class LoggedInUser {
     private static User user;
 
-    public static User getUser() {
-        return user;
-    }
 
-    public static void setUser(User user) {
+    public static void loginUser(User user) {
         LoggedInUser.user = user;
     }
 
-    public String getUsername() {
+    public static void logoutUser() {
+        LoggedInUser.user = null;
+    }
+
+
+    public static boolean isLoggedInAsManager() {
+        return user != null && user.isManager();
+    }
+
+    public static boolean isLoggedInAsEmployee() {
+        return user != null && user.isEmployee();
+    }
+
+    public static boolean isLoggedIn() {
+        return user != null;
+    }
+
+
+    public static String getUsername() {
         return user.getUsername();
     }
 
-    public String getPasswordHash() {
+    public static String getPasswordHash() {
         return user.getPasswordHash();
     }
 
-    public UserRole getRole() {
+    public static UserRole getRole() {
         return user.getRole();
     }
 
-    public String getFullName() {
+    public static String getFullName() {
         return user.getFullName();
     }
 
-    public String getAddress() {
+    public static String getAddress() {
         return user.getAddress();
     }
 
-    public String getPhone() {
+    public static String getPhone() {
         return user.getPhone();
     }
 

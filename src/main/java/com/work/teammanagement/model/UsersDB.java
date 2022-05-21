@@ -2,12 +2,9 @@ package com.work.teammanagement.model;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.work.teammanagement.LoggedInUser;
 import com.work.teammanagement.exceptions.UserNotFoundException;
 import com.work.teammanagement.exceptions.UsernameAlreadyExistsException;
 import com.work.teammanagement.model.types.UserRole;
-import com.work.teammanagement.services.LoginService;
-import com.work.teammanagement.services.RegisterService;
 
 import java.io.File;
 import java.io.IOException;
@@ -73,33 +70,5 @@ public final class UsersDB {
             System.out.println(user + ", ");
         }
         System.out.println("]");
-    }
-
-    public static void testDB() {
-        System.out.println("Test register");
-        try {
-            RegisterService.registerUser("username1", "password1", UserRole.Manager, "This is a name", "Some address", "088018805255081");
-            RegisterService.registerUser("username2", "password5", UserRole.GeneralUser, null, null, null);
-            UsersDB.loadUsersDB();
-            UsersDB.print();
-            RegisterService.registerUser("username1", "password1", UserRole.Manager, "This is a name", "Some address", "088018805255081");
-        } catch (UsernameAlreadyExistsException e) {
-            System.out.println(e);
-        }
-
-        System.out.println();
-        System.out.println("Test login");
-        try {
-            LoginService.loginUser("username1", "password1", UserRole.Manager);
-            LoggedInUser.print();
-            LoginService.loginUser("username2", "password5", UserRole.GeneralUser);
-            LoggedInUser.print();
-            LoginService.loginUser("username2", "password5", UserRole.Manager);
-            LoggedInUser.print();
-        } catch (UserNotFoundException e) {
-            System.out.println(e);
-        }
-
-        throw new RuntimeException();
     }
 }

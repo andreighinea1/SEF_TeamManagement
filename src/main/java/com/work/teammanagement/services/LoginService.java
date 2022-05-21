@@ -6,9 +6,13 @@ import com.work.teammanagement.model.User;
 import com.work.teammanagement.model.UsersDB;
 import com.work.teammanagement.model.types.UserRole;
 
-public class LoginService {
+public final class LoginService {
     public static void loginUser(String username, String password, UserRole role) throws UserNotFoundException {
         User user = UsersDB.findUser(username, password, role);
-        LoggedInUser.setUser(user);
+        LoggedInUser.loginUser(user);
+    }
+
+    public static void logoutUser(){
+        LoggedInUser.logoutUser();
     }
 }

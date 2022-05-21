@@ -1,12 +1,13 @@
 package com.work.teammanagement.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.work.teammanagement.model.serializing.UserRoleFromStrConverter;
 import com.work.teammanagement.model.serializing.UserRoleToStrConverter;
 import com.work.teammanagement.model.types.UserRole;
 
-import static com.work.teammanagement.services.EncodingService.encodePassword;
+import static com.work.teammanagement.services.Encoding.encodePassword;
 
 public class User {
     private String username;
@@ -32,6 +33,7 @@ public class User {
         this.phone = phone;
     }
 
+
     public String getUsername() {
         return username;
     }
@@ -55,6 +57,17 @@ public class User {
     public String getPhone() {
         return phone;
     }
+
+    @JsonIgnore
+    public boolean isManager() {
+        return role == UserRole.Manager;
+    }
+
+    @JsonIgnore
+    public boolean isEmployee() {
+        return role == UserRole.Employee;
+    }
+
 
     @Override
     public boolean equals(Object o) {
