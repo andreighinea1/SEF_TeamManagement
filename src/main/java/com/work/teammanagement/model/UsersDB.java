@@ -3,6 +3,7 @@ package com.work.teammanagement.model;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.work.teammanagement.exceptions.UsernameAlreadyExistsException;
+import com.work.teammanagement.model.types.UserType;
 
 import java.io.File;
 import java.io.IOException;
@@ -18,6 +19,11 @@ public final class UsersDB {
         checkUserDoesNotAlreadyExist(newUser.getUsername());
         users.add(newUser);
         saveUsersDB(); // Not perfect as it saves the whole DB, but it is what it is
+    }
+
+    public static void addUser(String username, String password, UserType role, String fullName, String address,
+                               String phone) throws UsernameAlreadyExistsException {
+        addUser(new User(username, password, role, fullName, address, phone));
     }
 
     private static void checkUserDoesNotAlreadyExist(String username) throws UsernameAlreadyExistsException {
@@ -50,6 +56,22 @@ public final class UsersDB {
     }
 
     public static void print() {
-        System.out.println(users.toString());
+        System.out.print("[");
+        for (User user: users) {
+            System.out.println(user + ", ");
+        }
+        System.out.print("]");
+    }
+
+    public static void testDB(){
+        try {
+            addUser("username1", "password1", UserType.Manager, "This is a name", "Some address", "088018805255081");
+            addUser("username2", "password5", UserType.GeneralUser, null, null, null);
+            loadUsersDB();
+            print();
+            addUser("username1", "password1", UserType.Manager, "This is a name", "Some address", "088018805255081");
+        } catch (UsernameAlreadyExistsException e) {
+            System.out.println("Exception also works");
+        }
     }
 }
