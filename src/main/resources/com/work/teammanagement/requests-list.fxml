@@ -13,11 +13,16 @@
             <Image url="@img/Login.jpeg" />
          </image>
       </ImageView>
-      <ListView editable="true" layoutX="14.0" layoutY="82.0" opacity="0.63" prefHeight="280.0" prefWidth="561.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" />
+      <ListView editable="true" layoutX="14.0" layoutY="82.0" opacity="0.63" prefHeight="245.0" prefWidth="572.0" AnchorPane.leftAnchor="14.0" AnchorPane.rightAnchor="14.0" />
       <Label layoutX="188.0" layoutY="14.0" prefHeight="53.0" prefWidth="232.0" text="LIST OF REQUESTS" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
+      <Button layoutX="444.0" layoutY="327.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="131.0" text="BACK">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
