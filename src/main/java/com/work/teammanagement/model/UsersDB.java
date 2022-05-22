@@ -6,6 +6,7 @@ import com.work.teammanagement.exceptions.UserNotFoundException;
 import com.work.teammanagement.exceptions.UsernameAlreadyExistsException;
 import com.work.teammanagement.model.users.User;
 import com.work.teammanagement.model.users.UserRole;
+import com.work.teammanagement.services.EmployeeRequestsService;
 
 import java.io.File;
 import java.io.IOException;
@@ -17,24 +18,33 @@ public final class UsersDB {
     private static final String dbName = "UsersDB.json";
 
 
-    public static User addUser(User newUser) throws UsernameAlreadyExistsException {
-        checkUsernameExists(newUser.getUsername());
-        users.add(newUser);
+    public static User addUser(User user) throws UsernameAlreadyExistsException {
+        verifyUsernameDoesNotExist(user.getUsername());
+        EmployeeRequestsService.initForUsername(user.getUsername());
+        users.add(user);
         saveUsersDB(); // TODO: Not perfect as it saves the whole DB, but it is what it is
 
-        return newUser;
+        return user;
     }
 
-    public static User addUser(String username, String password, UserRole role, String fullName, String address,
+    public static User addUser(String username, String password, UserRole role, String managerUsername, String fullName, String address,
                                String phone) throws UsernameAlreadyExistsException {
-        return addUser(new User(username, password, role, fullName, address, phone));
+        return addUser(new User(username, password, role, managerUsername, fullName, address, phone));
     }
 
-    private static void checkUsernameExists(String username) throws UsernameAlreadyExistsException {
+    private static void verifyUsernameDoesNotExist(String username) throws UsernameAlreadyExistsException {
         for (User user : users) {
             if (username.equals(user.getUsername()))
                 throw new UsernameAlreadyExistsException(username);
         }
+    }
+
+    public static void verifyUsernameExists(String username) throws UserNotFoundException {
+        for (User user : users) {
+            if (user.getUsername().equals(username))
+                return;
+        }
+        throw new UserNotFoundException(username);
     }
 
     public static User findUser(String username, String password, UserRole role) throws UserNotFoundException {
@@ -52,6 +62,8 @@ public final class UsersDB {
         try {
             users = objectMapper.readValue(Paths.get(dbName).toFile(), new TypeReference<>() {
             });
+            for (User user : users)
+                EmployeeRequestsService.initForUsername(user.getUsername());
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException();

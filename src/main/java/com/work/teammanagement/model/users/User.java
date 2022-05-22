@@ -3,10 +3,8 @@ package com.work.teammanagement.model.users;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.work.teammanagement.model.UsersDB;
 import com.work.teammanagement.model.serializing.UserRoleFromStrConverter;
 import com.work.teammanagement.model.serializing.UserRoleToStrConverter;
-import com.work.teammanagement.requests.EmployeeRequest;
 
 import static com.work.teammanagement.services.Encoding.encodePassword;
 
@@ -19,17 +17,22 @@ public class User {
     private String fullName;
     private String address;
     private String phone;
+    private String managerUsername;
 
 
     // This empty constructor is needed for JSON (just like the unused getters)
     public User() {
     }
 
-    public User(String username, String password, UserRole role,
+    public User(String username, String password, UserRole role, String managerUsername,
                 String fullName, String address, String phone) {
         this.username = username;
         this.passwordHash = encodePassword(username, password);
         this.role = role;
+        if (role == UserRole.Manager)
+            this.managerUsername = "";
+        else
+            this.managerUsername = managerUsername;
         this.fullName = fullName;
         this.address = address;
         this.phone = phone;
@@ -58,6 +61,14 @@ public class User {
 
     public String getPhone() {
         return phone;
+    }
+
+    public String getManagerUsername() {
+        return managerUsername;
+    }
+
+    public void setManagerUsername(String managerUsername) {
+        this.managerUsername = managerUsername;
     }
 
 

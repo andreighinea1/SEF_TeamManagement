@@ -1,8 +1,12 @@
 package com.work.teammanagement;
 
-import com.work.teammanagement.requests.EmployeeRequest;
+import com.work.teammanagement.exceptions.NotEnoughPrivilegesException;
+import com.work.teammanagement.exceptions.UserNotFoundException;
+import com.work.teammanagement.exceptions.UserNotLoggedInException;
+import com.work.teammanagement.model.EmployeeRequest;
 import com.work.teammanagement.model.users.User;
 import com.work.teammanagement.model.users.UserRole;
+import com.work.teammanagement.services.EmployeeRequestsService;
 
 import java.util.ArrayList;
 
@@ -20,44 +24,62 @@ public final class LoggedInUser {
 
 
     public static boolean isLoggedInAsManager() {
-        return user != null && user.isManager();
+        return isLoggedIn() && user.isManager();
     }
 
     public static boolean isLoggedInAsEmployee() {
-        return user != null && user.isEmployee();
+        return isLoggedIn() && user.isEmployee();
     }
 
     public static boolean isLoggedIn() {
         return user != null;
     }
 
+    public static void checkLoggedIn() throws UserNotLoggedInException {
+        if (user == null)
+            throw new UserNotLoggedInException();
+    }
 
-    public static String getUsername() {
+    public static void checkLoggedInAsManager() throws NotEnoughPrivilegesException {
+
+        if (!isLoggedInAsManager())
+            throw new NotEnoughPrivilegesException();
+    }
+
+
+    public static String getUsername() throws UserNotLoggedInException {
+        checkLoggedIn();
         return user.getUsername();
     }
 
-    public static String getPasswordHash() {
+    public static String getPasswordHash() throws UserNotLoggedInException {
+        checkLoggedIn();
         return user.getPasswordHash();
     }
 
-    public static UserRole getRole() {
+    public static UserRole getRole() throws UserNotLoggedInException {
+        checkLoggedIn();
         return user.getRole();
     }
 
-    public static String getFullName() {
+    public static String getFullName() throws UserNotLoggedInException {
+        checkLoggedIn();
         return user.getFullName();
     }
 
-    public static String getAddress() {
+    public static String getAddress() throws UserNotLoggedInException {
+        checkLoggedIn();
         return user.getAddress();
     }
 
-    public static String getPhone() {
+    public static String getPhone() throws UserNotLoggedInException {
+        checkLoggedIn();
         return user.getPhone();
     }
 
-    public static ArrayList<EmployeeRequest> getRequests() {
-        return user.getRequests();
+    public static ArrayList<EmployeeRequest> getRequests() throws UserNotLoggedInException, NotEnoughPrivilegesException, UserNotFoundException {
+        checkLoggedIn();
+        return EmployeeRequestsService.getUserRequests(getUsername());
     }
 
     public static void print() {

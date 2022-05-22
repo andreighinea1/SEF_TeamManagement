@@ -8,11 +8,10 @@ import com.work.teammanagement.model.users.UserRole;
 
 public final class LoginService {
     public static void loginUser(String username, String password, UserRole role) throws UserNotFoundException {
-        User user = UsersDB.findUser(username, password, role);
-        LoggedInUser.loginUser(user);
+        LoggedInUser.loginUser(UsersDB.findUser(username, password, role));
     }
 
-    public static void logoutUser(){
+    public static void logoutUser() {
         LoggedInUser.logoutUser();
     }
 }

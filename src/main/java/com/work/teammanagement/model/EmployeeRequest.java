@@ -1,4 +1,4 @@
-package com.work.teammanagement.requests;
+package com.work.teammanagement.model;
 
 public class EmployeeRequest {
     private String requestTitle;
@@ -16,6 +16,10 @@ public class EmployeeRequest {
 
     public String getRequestTitle() {
         return requestTitle;
+    }
+
+    public String getManagerUserName() {
+        return managerUserName;
     }
 
     @Override
