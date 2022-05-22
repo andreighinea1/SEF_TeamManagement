@@ -16,7 +16,7 @@
          <children>
             <ImageView fitHeight="450.0" fitWidth="625.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../Downloads/WhatsApp%20Image%202022-05-21%20at%2019.17.14.jpeg" />
+                  <Image url="@img/Login.jpeg" />
                </image>
             </ImageView>
             <Label layoutX="125.0" layoutY="52.0" prefHeight="52.0" prefWidth="331.0" text="REGISTER  PAGE" textFill="WHITE">
