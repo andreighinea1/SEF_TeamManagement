@@ -4,9 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.work.teammanagement.LoggedInUser;
 import com.work.teammanagement.exceptions.*;
-import com.work.teammanagement.model.EmployeeRequest;
-import com.work.teammanagement.model.users.User;
-import com.work.teammanagement.model.users.UserRole;
+import com.work.teammanagement.model.requests.EmployeeRequest;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;

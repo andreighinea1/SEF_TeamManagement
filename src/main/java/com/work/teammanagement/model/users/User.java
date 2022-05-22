@@ -111,6 +111,6 @@ public class User {
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
                 ", managerUsername='" + managerUsername + '\'' +
-                '}';
+                "}\n";
     }
 }
