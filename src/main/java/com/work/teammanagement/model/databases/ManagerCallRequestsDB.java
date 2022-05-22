@@ -2,16 +2,14 @@ package com.work.teammanagement.model.databases;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.work.teammanagement.LoggedInUser;
+import com.work.teammanagement.model.users.LoggedInUser;
 import com.work.teammanagement.exceptions.*;
-import com.work.teammanagement.model.requests.employee.EmployeeRequest;
 import com.work.teammanagement.model.requests.manager.ManagerCallRequest;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public final class ManagerCallRequestsDB {
@@ -34,7 +32,7 @@ public final class ManagerCallRequestsDB {
         saveRequestsDB(); // TODO: Not perfect as it saves the whole DB, but it is what it is
     }
 
-    public static ManagerCallRequest getRequestForLoggedInEmployee() throws NoManagerCallRequestsException, ManagerCannotHaveRequestsException, UserNotLoggedInException {
+    private static ManagerCallRequest getRequestForLoggedInEmployee() throws NoManagerCallRequestsException, ManagerCannotHaveRequestsException, UserNotLoggedInException {
         String loggedInEmployeeUsername = LoggedInUser.getEmployeeUsername();
         ManagerCallRequest managerCallRequest = employeeUsernameToRequests.get(loggedInEmployeeUsername);
         if (managerCallRequest == null)
