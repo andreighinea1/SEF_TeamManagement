@@ -18,8 +18,10 @@ public final class UsersDB {
     private static final String dbName = "UsersDB.json";
 
 
-    public static User addUser(User user) throws UsernameAlreadyExistsException {
+    public static User addUser(User user) throws UsernameAlreadyExistsException, UserNotFoundException {
         verifyUsernameDoesNotExist(user.getUsername());
+        if(user.getRole() == UserRole.Employee)
+            verifyUsernameExists(user.getManagerUsername()); // Employees must have this one set
         EmployeeRequestsService.initForUsername(user.getUsername());
         users.add(user);
         saveUsersDB(); // TODO: Not perfect as it saves the whole DB, but it is what it is
@@ -28,7 +30,7 @@ public final class UsersDB {
     }
 
     public static User addUser(String username, String password, UserRole role, String managerUsername, String fullName, String address,
-                               String phone) throws UsernameAlreadyExistsException {
+                               String phone) throws UsernameAlreadyExistsException, UserNotFoundException {
         return addUser(new User(username, password, role, managerUsername, fullName, address, phone));
     }
 

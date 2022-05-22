@@ -26,12 +26,23 @@ public class TestUsersDB {
             UsersDB.print();
         } catch (UsernameAlreadyExistsException e) {
             System.out.println(e.getMessage());
+        } catch (UserNotFoundException e) {
+            throw new RuntimeException(e);
         }
         try {
             EmployeeRequestsService.addRequest("employee2", "request3", "manager1");
         } catch (UserNotFoundException e) {
             System.out.println(e.getMessage());
         } catch (NotEnoughPrivilegesException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            RegisterService.registerUser("employee3", "password5", UserRole.Employee, "NaN",
+                    null, null, null);
+            UsersDB.print();
+        } catch (UserNotFoundException e) {
+            System.out.println(e.getMessage());
+        } catch (UsernameAlreadyExistsException e) {
             throw new RuntimeException(e);
         }
 
