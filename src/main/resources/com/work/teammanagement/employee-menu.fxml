@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="375.0" prefWidth="599.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane layoutY="-1.0" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@img/Login.jpeg" />
+               </image>
+            </ImageView>
+            <Label layoutX="208.0" layoutY="38.0" text="EMPLOYEE MENU" textAlignment="CENTER" textFill="WHITE">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Label>
+            <Button layoutX="74.0" layoutY="235.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="144.0" text="REQUESTS STATUS">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button layoutX="74.0" layoutY="118.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="144.0" text="MAKE REQUEST">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button layoutX="392.0" layoutY="118.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="144.0" text="ARRIVAL TIME">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+            <Button layoutX="392.0" layoutY="235.0" mnemonicParsing="false" prefHeight="47.0" prefWidth="144.0" text="LOGOUT">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Button>
+         </children>
+      </AnchorPane>
+   </children>
+</Pane>
