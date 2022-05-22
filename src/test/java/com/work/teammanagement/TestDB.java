@@ -127,6 +127,6 @@ public class TestDB {
         }
 
         System.out.println();
-        System.out.println("Ended test");
+        System.out.println("Ended Test");
     }
 }
