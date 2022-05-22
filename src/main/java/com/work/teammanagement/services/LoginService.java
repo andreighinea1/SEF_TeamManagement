@@ -2,13 +2,15 @@ package com.work.teammanagement.services;
 
 import com.work.teammanagement.LoggedInUser;
 import com.work.teammanagement.exceptions.UserNotFoundException;
-import com.work.teammanagement.model.User;
-import com.work.teammanagement.model.UsersDB;
-import com.work.teammanagement.model.types.UserRole;
+import com.work.teammanagement.model.databases.UsersDB;
+import com.work.teammanagement.model.users.UserRole;
 
-public class LoginService {
+public final class LoginService {
     public static void loginUser(String username, String password, UserRole role) throws UserNotFoundException {
-        User user = UsersDB.findUser(username, password, role);
-        LoggedInUser.setUser(user);
+        LoggedInUser.loginUser(UsersDB.findUser(username, password, role));
+    }
+
+    public static void logoutUser() {
+        LoggedInUser.logoutUser();
     }
 }

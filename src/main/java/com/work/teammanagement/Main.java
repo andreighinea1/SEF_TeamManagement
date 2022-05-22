@@ -1,6 +1,7 @@
 package com.work.teammanagement;
 
-import com.work.teammanagement.model.UsersDB;
+import com.work.teammanagement.model.databases.UsersDB;
+import com.work.teammanagement.services.PageSelector;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,27 +12,25 @@ import java.io.IOException;
 
 public class Main extends Application {
     private static Scene scene;
-    private static Main instance;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
-//        UsersDB.testDB();
-
-        instance = this;
+        UsersDB.loadUsersDB();
 
         primaryStage.setResizable(false);
         primaryStage.setTitle("Team Management");
 
-//        Parent root = FXMLLoader.load(getClass().getResource("login-view.fxml"));
-        Parent root = FXMLLoader.load(getClass().getResource("test-page.fxml"));
+//        Parent root = FXMLLoader.load(getClass().getResource("login-view"));
+        Parent root = FXMLLoader.load(PageSelector.selectPage("test-page"));
         scene = new Scene(root, 800, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    public static void changeScene(String fxml) {
+    public static void changeScene(String pageName) {
         try {
-            scene.setRoot(FXMLLoader.load(instance.getClass().getResource(fxml)));
+            Parent root = FXMLLoader.load(PageSelector.selectPage(pageName));
+            scene.setRoot(root);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
