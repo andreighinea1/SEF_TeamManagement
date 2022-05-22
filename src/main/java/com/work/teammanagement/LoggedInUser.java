@@ -1,10 +1,11 @@
 package com.work.teammanagement;
 
-import com.work.teammanagement.exceptions.NotEnoughPrivilegesException;
-import com.work.teammanagement.exceptions.ManagerCannotHaveRequestsException;
-import com.work.teammanagement.exceptions.UserNotLoggedInException;
+import com.work.teammanagement.exceptions.*;
+import com.work.teammanagement.model.databases.UsersDB;
 import com.work.teammanagement.model.users.User;
 import com.work.teammanagement.model.users.UserRole;
+
+import java.util.Objects;
 
 public final class LoggedInUser {
     private static User user;
@@ -51,6 +52,14 @@ public final class LoggedInUser {
         checkLoggedIn();
         if (!user.isEmployee())
             throw new ManagerCannotHaveRequestsException(getUsername());
+    }
+
+    // Check that the current logged-in user is the manager assigned to the provided employee username
+    public static void checkAssignedManager(String employeeUsername) throws UserNotLoggedInException, UserNotFoundException, NotEnoughPrivilegesException, ManagerMismatchException {
+        String managerUsername1 = getManagerUsername();
+        String managerUsername2 = UsersDB.findAssignedManager(employeeUsername);
+        if (!Objects.equals(managerUsername1, managerUsername2))
+            throw new ManagerMismatchException(managerUsername1, managerUsername2);
     }
 
 

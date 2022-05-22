@@ -3,10 +3,7 @@ package com.work.teammanagement.model.databases;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.work.teammanagement.LoggedInUser;
-import com.work.teammanagement.exceptions.NotEnoughPrivilegesException;
-import com.work.teammanagement.exceptions.ManagerCannotHaveRequestsException;
-import com.work.teammanagement.exceptions.UserNotFoundException;
-import com.work.teammanagement.exceptions.UserNotLoggedInException;
+import com.work.teammanagement.exceptions.*;
 import com.work.teammanagement.model.EmployeeRequest;
 import com.work.teammanagement.model.users.User;
 import com.work.teammanagement.model.users.UserRole;
@@ -34,6 +31,7 @@ public final class EmployeeRequestsDB {
     @NotNull
     private static ArrayList<EmployeeRequest> getUserRequestsForAdding(String loggedInUsername) throws UserNotFoundException {
         UsersDB.verifyUsernameExists(loggedInUsername);
+        usernameToRequests.putIfAbsent(loggedInUsername, new ArrayList<>()); // IfAbsent because we are adding
         ArrayList<EmployeeRequest> requests = usernameToRequests.get(loggedInUsername);
         if (requests == null)
             throw new RuntimeException("requests should not be null");
@@ -41,30 +39,26 @@ public final class EmployeeRequestsDB {
     }
 
     @NotNull
-    public static ArrayList<EmployeeRequest> getOtherUserRequests(String otherUsername) throws UserNotFoundException, NotEnoughPrivilegesException, UserNotLoggedInException {
+    public static ArrayList<EmployeeRequest> getUserRequestsForManager(String otherUsername) throws UserNotFoundException, NotEnoughPrivilegesException, UserNotLoggedInException, ManagerMismatchException, UserNoRequestsException {
         UsersDB.verifyUsernameExists(otherUsername);
         LoggedInUser.checkLoggedInAsManager();
+        LoggedInUser.checkAssignedManager(otherUsername);
+
         ArrayList<EmployeeRequest> requests = usernameToRequests.get(otherUsername);
         if (requests == null)
-            throw new RuntimeException("requests should not be null");
+            throw new UserNoRequestsException(otherUsername);
         return requests;
-    }
-
-    static void initForUser(User user) throws UserNotFoundException {
-        if (user.getRole() == UserRole.Manager)
-            return;
-
-        UsersDB.verifyUsernameExists(user.getManagerUsername()); // Employees must have this one set
-        usernameToRequests.put(user.getUsername(), new ArrayList<>());
     }
 
 
     public static void loadRequestsDB() {
-        System.out.println();
         try {
-            usernameToRequests = objectMapper.readValue(Paths.get(dbName).toFile(), new TypeReference<>() {
+            HashMap<String, ArrayList<EmployeeRequest>> temp = objectMapper.readValue(Paths.get(dbName).toFile(), new TypeReference<>() {
             });
-            loaded = true;
+            if(temp != null) {
+                usernameToRequests = temp;
+                loaded = true;
+            }
         } catch (FileNotFoundException ignored) {
         } catch (IOException e) {
             throw new RuntimeException(e);
@@ -77,7 +71,6 @@ public final class EmployeeRequestsDB {
     }
 
     public static void saveRequestsDB() {
-        System.out.printf("Saving DB for '%s'%n", dbName);
         try {
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(dbName), usernameToRequests);
         } catch (IOException e) {

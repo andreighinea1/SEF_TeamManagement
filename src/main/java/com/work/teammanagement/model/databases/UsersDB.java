@@ -19,15 +19,14 @@ public final class UsersDB {
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private static boolean loaded = false;
 
-    public static void addToDB(User user) throws UsernameAlreadyExistsException, UserNotFoundException {
+    public static void addToDB(User user) throws UsernameAlreadyExistsException {
         verifyUsernameDoesNotExist(user.getUsername());
-        EmployeeRequestsDB.initForUser(user);
         users.add(user);
         saveUsersDB(); // TODO: Not perfect as it saves the whole DB, but it is what it is
     }
 
     public static void addToDB(String username, String password, UserRole role, String managerUsername, String fullName, String address,
-                               String phone) throws UsernameAlreadyExistsException, UserNotFoundException {
+                               String phone) throws UsernameAlreadyExistsException {
         addToDB(new User(username, password, role, managerUsername, fullName, address, phone));
     }
 
@@ -62,9 +61,16 @@ public final class UsersDB {
         throw new UserNotFoundException(username);
     }
 
+    public static String findAssignedManager(String username) throws UserNotFoundException {
+        for (User user : users) {
+            if (user.getUsername().equals(username))
+                return user.getManagerUsername();
+        }
+        throw new UserNotFoundException(username);
+    }
+
 
     public static void loadUsersDB() {
-        System.out.println();
         try {
             users = objectMapper.readValue(Paths.get(dbName).toFile(), new TypeReference<>() {
             });
@@ -81,7 +87,6 @@ public final class UsersDB {
     }
 
     public static void saveUsersDB() {
-        System.out.printf("Saving DB for '%s'%n", dbName);
         try {
             objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(dbName), users);
         } catch (IOException e) {
