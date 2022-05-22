@@ -8,7 +8,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ImageView fitHeight="464.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="464.0" fitWidth="600.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@img/Login.jpeg" />
          </image>
@@ -40,5 +40,11 @@
             <Font size="18.0" />
          </font>
       </Button>
+      <TextField layoutX="17.0" layoutY="237.0" prefHeight="27.0" prefWidth="254.0" />
+      <Label layoutX="19.0" layoutY="214.0" text="Introduce The Reason Of Request" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>
