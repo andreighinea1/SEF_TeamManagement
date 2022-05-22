@@ -11,9 +11,6 @@ import com.work.teammanagement.model.requests.employee.serializing.ApprovalStatu
 public class ManagerCallRequest {
     private String requestTitle;
     private String managerUsername; // Manager to which the employee has to respond to
-
-    @JsonSerialize(converter = ApprovalStatusToStrConverter.class)
-    @JsonDeserialize(converter = ApprovalStatusFromStrConverter.class)
     private EmployeeResponse employeeResponse;
 
 

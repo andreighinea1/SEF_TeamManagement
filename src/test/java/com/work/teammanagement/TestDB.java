@@ -180,6 +180,9 @@ public class TestDB {
 
         System.out.println("---------- respondToRequest");
         try {
+            LoginService.loginUser("employee2", "password5", UserRole.Employee);
+            ManagerCallRequestsDB.respondToRequest(false, "NOPE");
+
             LoginService.loginUser("employee1", "password5", UserRole.Employee);
             ManagerCallRequestsDB.respondToRequest(true, "in a few hours");
             ManagerCallRequestsDB.print();
