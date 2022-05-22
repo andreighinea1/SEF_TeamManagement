@@ -1,6 +1,6 @@
 package com.work.teammanagement.services;
 
-import com.work.teammanagement.model.users.LoggedInUser;
+import com.work.teammanagement.LoggedInUser;
 import com.work.teammanagement.Main;
 
 import java.net.URL;

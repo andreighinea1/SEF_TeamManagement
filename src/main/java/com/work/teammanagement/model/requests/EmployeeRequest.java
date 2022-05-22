@@ -1,20 +1,16 @@
-package com.work.teammanagement.model.requests.employee;
+package com.work.teammanagement.model.requests;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.work.teammanagement.exceptions.NotEnoughPrivilegesException;
-import com.work.teammanagement.exceptions.NotManagerException;
-import com.work.teammanagement.exceptions.UserNotFoundException;
-import com.work.teammanagement.model.databases.UsersDB;
-import com.work.teammanagement.model.requests.employee.serializing.ApprovalStatusFromStrConverter;
-import com.work.teammanagement.model.requests.employee.serializing.ApprovalStatusToStrConverter;
+import com.work.teammanagement.model.serializing.ApprovedStatusFromStrConverter;
+import com.work.teammanagement.model.serializing.ApprovedStatusToStrConverter;
 
 public class EmployeeRequest {
     private String requestTitle;
     private String managerUserName;
 
-    @JsonSerialize(converter = ApprovalStatusToStrConverter.class)
-    @JsonDeserialize(converter = ApprovalStatusFromStrConverter.class)
+    @JsonSerialize(converter = ApprovedStatusToStrConverter.class)
+    @JsonDeserialize(converter = ApprovedStatusFromStrConverter.class)
     private ApprovalStatus approvalStatus;
 
 
@@ -22,9 +18,7 @@ public class EmployeeRequest {
     public EmployeeRequest() {
     }
 
-    public EmployeeRequest(String requestTitle, String managerUserName) throws UserNotFoundException, NotManagerException {
-        UsersDB.checkIsManager(managerUserName);
-
+    public EmployeeRequest(String requestTitle, String managerUserName) {
         this.requestTitle = requestTitle;
         this.managerUserName = managerUserName;
         this.approvalStatus = ApprovalStatus.Pending;
@@ -59,6 +53,6 @@ public class EmployeeRequest {
                 "requestTitle='" + requestTitle + '\'' +
                 ", managerUserName='" + managerUserName + '\'' +
                 ", approvalStatus=" + approvalStatus +
-                "}";
+                "}\n";
     }
 }

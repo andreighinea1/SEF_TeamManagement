@@ -1,4 +1,4 @@
-package com.work.teammanagement.model.users.serializing;
+package com.work.teammanagement.model.serializing;
 
 import com.fasterxml.jackson.databind.util.StdConverter;
 import com.work.teammanagement.model.users.UserRole;

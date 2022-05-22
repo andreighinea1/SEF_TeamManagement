@@ -2,7 +2,8 @@ package com.work.teammanagement.model.databases;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.work.teammanagement.exceptions.*;
+import com.work.teammanagement.exceptions.UserNotFoundException;
+import com.work.teammanagement.exceptions.UsernameAlreadyExistsException;
 import com.work.teammanagement.model.users.User;
 import com.work.teammanagement.model.users.UserRole;
 
@@ -52,30 +53,20 @@ public final class UsersDB {
         throw new UserNotFoundException(username, role);
     }
 
-    private static User findUserByUsername(String username) throws UserNotFoundException {
+    public static UserRole findUserRole(String username) throws UserNotFoundException {
         for (User user : users) {
             if (user.getUsername().equals(username))
-                return user;
+                return user.getRole();
         }
         throw new UserNotFoundException(username);
     }
 
-    public static UserRole findUserRole(String username) throws UserNotFoundException {
-        return findUserByUsername(username).getRole();
-    }
-
     public static String findAssignedManager(String username) throws UserNotFoundException {
-        return findUserByUsername(username).getManagerUsername();
-    }
-
-    public static void checkIsManager(String username) throws UserNotFoundException, NotManagerException {
-        if (findUserRole(username) != UserRole.Manager)
-            throw new NotManagerException(username);
-    }
-
-    public static void checkIsEmployee(String username) throws UserNotFoundException, NotEmployeeException {
-        if (findUserRole(username) != UserRole.Employee)
-            throw new NotEmployeeException(username);
+        for (User user : users) {
+            if (user.getUsername().equals(username))
+                return user.getManagerUsername();
+        }
+        throw new UserNotFoundException(username);
     }
 
 
@@ -83,7 +74,7 @@ public final class UsersDB {
         try {
             users = objectMapper.readValue(Paths.get(dbName).toFile(), new TypeReference<>() {
             });
-            loaded = true;
+        loaded = true;
         } catch (FileNotFoundException ignored) {
         } catch (IOException e) {
             throw new RuntimeException(e);

@@ -1,7 +1,9 @@
-package com.work.teammanagement.model.users;
+package com.work.teammanagement;
 
 import com.work.teammanagement.exceptions.*;
 import com.work.teammanagement.model.databases.UsersDB;
+import com.work.teammanagement.model.users.User;
+import com.work.teammanagement.model.users.UserRole;
 
 import java.util.Objects;
 
@@ -30,6 +32,11 @@ public final class LoggedInUser {
         return user != null;
     }
 
+    public static void checkLoggedIn(String username) throws UserNotLoggedInException {
+        checkLoggedIn();
+        if(!user.getUsername().equals(username))
+            throw new UserNotLoggedInException(username);
+    }
     public static void checkLoggedIn() throws UserNotLoggedInException {
         if (user == null)
             throw new UserNotLoggedInException();
@@ -38,13 +45,13 @@ public final class LoggedInUser {
     public static void checkLoggedInAsManager() throws NotEnoughPrivilegesException, UserNotLoggedInException {
         checkLoggedIn();
         if (!user.isManager())
-            throw new NotEnoughPrivilegesException(user.getUsername());
+            throw new NotEnoughPrivilegesException();
     }
 
     public static void checkLoggedInAsEmployee() throws ManagerCannotHaveRequestsException, UserNotLoggedInException {
         checkLoggedIn();
         if (!user.isEmployee())
-            throw new ManagerCannotHaveRequestsException(user.getUsername());
+            throw new ManagerCannotHaveRequestsException(getUsername());
     }
 
     // Check that the current logged-in user is the manager assigned to the provided employee username
