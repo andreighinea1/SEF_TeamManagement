@@ -34,9 +34,10 @@ public final class LoggedInUser {
 
     public static void checkLoggedIn(String username) throws UserNotLoggedInException {
         checkLoggedIn();
-        if(!user.getUsername().equals(username))
+        if (!user.getUsername().equals(username))
             throw new UserNotLoggedInException(username);
     }
+
     public static void checkLoggedIn() throws UserNotLoggedInException {
         if (user == null)
             throw new UserNotLoggedInException();
@@ -45,13 +46,13 @@ public final class LoggedInUser {
     public static void checkLoggedInAsManager() throws NotEnoughPrivilegesException, UserNotLoggedInException {
         checkLoggedIn();
         if (!user.isManager())
-            throw new NotEnoughPrivilegesException();
+            throw new NotEnoughPrivilegesException(user.getUsername());
     }
 
     public static void checkLoggedInAsEmployee() throws ManagerCannotHaveRequestsException, UserNotLoggedInException {
         checkLoggedIn();
         if (!user.isEmployee())
-            throw new ManagerCannotHaveRequestsException(getUsername());
+            throw new ManagerCannotHaveRequestsException(user.getUsername());
     }
 
     // Check that the current logged-in user is the manager assigned to the provided employee username
