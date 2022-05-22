@@ -6,7 +6,7 @@ import com.work.teammanagement.exceptions.UserNotLoggedInException;
 import com.work.teammanagement.model.EmployeeRequest;
 import com.work.teammanagement.model.users.User;
 import com.work.teammanagement.model.users.UserRole;
-import com.work.teammanagement.services.EmployeeRequestsService;
+import com.work.teammanagement.model.databases.EmployeeRequestsDB;
 
 import java.util.ArrayList;
 
@@ -35,6 +35,11 @@ public final class LoggedInUser {
         return user != null;
     }
 
+    public static void checkLoggedIn(String username) throws UserNotLoggedInException {
+        checkLoggedIn();
+        if(!user.getUsername().equals(username))
+            throw new UserNotLoggedInException(username);
+    }
     public static void checkLoggedIn() throws UserNotLoggedInException {
         if (user == null)
             throw new UserNotLoggedInException();
@@ -75,11 +80,6 @@ public final class LoggedInUser {
     public static String getPhone() throws UserNotLoggedInException {
         checkLoggedIn();
         return user.getPhone();
-    }
-
-    public static ArrayList<EmployeeRequest> getRequests() throws UserNotLoggedInException, NotEnoughPrivilegesException, UserNotFoundException {
-        checkLoggedIn();
-        return EmployeeRequestsService.getUserRequests(getUsername());
     }
 
     public static void print() {

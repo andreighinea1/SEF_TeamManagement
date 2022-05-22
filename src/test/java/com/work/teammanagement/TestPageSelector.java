@@ -1,7 +1,7 @@
 package com.work.teammanagement;
 
 import com.work.teammanagement.exceptions.UserNotFoundException;
-import com.work.teammanagement.model.UsersDB;
+import com.work.teammanagement.model.databases.UsersDB;
 import com.work.teammanagement.model.users.UserRole;
 import com.work.teammanagement.services.LoginService;
 import com.work.teammanagement.services.PageSelector;
@@ -90,7 +90,7 @@ public class TestPageSelector extends Application {
     }
 
     public static void main(String[] args) {
-        TestUsersDB.main(args);
+        TestDB.main(args);
         launch(args);
     }
 }

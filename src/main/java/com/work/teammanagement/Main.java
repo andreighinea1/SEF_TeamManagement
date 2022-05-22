@@ -1,6 +1,6 @@
 package com.work.teammanagement;
 
-import com.work.teammanagement.model.UsersDB;
+import com.work.teammanagement.model.databases.UsersDB;
 import com.work.teammanagement.services.PageSelector;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;

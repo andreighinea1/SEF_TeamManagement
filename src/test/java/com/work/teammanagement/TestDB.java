@@ -1,17 +1,26 @@
 package com.work.teammanagement;
 
-import com.work.teammanagement.exceptions.NotEnoughPrivilegesException;
-import com.work.teammanagement.exceptions.UserNotFoundException;
-import com.work.teammanagement.exceptions.UserNotLoggedInException;
-import com.work.teammanagement.exceptions.UsernameAlreadyExistsException;
-import com.work.teammanagement.model.UsersDB;
+import com.work.teammanagement.exceptions.*;
+import com.work.teammanagement.model.databases.UsersDB;
 import com.work.teammanagement.model.users.UserRole;
-import com.work.teammanagement.services.EmployeeRequestsService;
+import com.work.teammanagement.model.databases.EmployeeRequestsDB;
 import com.work.teammanagement.services.LoginService;
 import com.work.teammanagement.services.RegisterService;
 
-public class TestUsersDB {
+public class TestDB {
     public static void main(String[] args) {
+        System.out.println("Test loading from DBs");
+
+        UsersDB.loadUsersDB();
+        UsersDB.print();
+        UsersDB.unloadUsersDB();
+
+        EmployeeRequestsDB.loadRequestsDB();
+        EmployeeRequestsDB.print();
+        EmployeeRequestsDB.unloadRequestsDB();
+
+
+        System.out.println();
         System.out.println("Test register");
         try {
             RegisterService.registerUser("manager1", "password1", UserRole.Manager, "this should be reset",
@@ -27,13 +36,6 @@ public class TestUsersDB {
         } catch (UsernameAlreadyExistsException e) {
             System.out.println(e.getMessage());
         } catch (UserNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            EmployeeRequestsService.addRequest("employee2", "request3", "manager1");
-        } catch (UserNotFoundException e) {
-            System.out.println(e.getMessage());
-        } catch (NotEnoughPrivilegesException e) {
             throw new RuntimeException(e);
         }
         try {
@@ -65,17 +67,31 @@ public class TestUsersDB {
         System.out.println("Test Requests");
         try {
             UsersDB.loadUsersDB();
-            LoginService.loginUser("manager1", "password1", UserRole.Manager);
+            EmployeeRequestsDB.loadRequestsDB();
+            EmployeeRequestsDB.print();
 
-            EmployeeRequestsService.addRequest("manager1", "request1", "manager1");
-            EmployeeRequestsService.addRequest("manager1", "request2", "manager1");
-            EmployeeRequestsService.addRequest("employee1", "request3", "manager1");
+            LoginService.loginUser("employee1", "password5", UserRole.Employee);
+            EmployeeRequestsDB.addRequest("employee1", "request2", "manager1");
+            EmployeeRequestsDB.addRequest("employee1", "request3", "manager1");
 
-            EmployeeRequestsService.print();
-        } catch (UserNotFoundException | NotEnoughPrivilegesException e) {
+            EmployeeRequestsDB.print();
+
+            EmployeeRequestsDB.addRequest("employee2", "request3", "manager1");
+        } catch (UserNotFoundException e) {
+            System.out.println(e.getMessage());
+            assert e.getMessage().equals("{username: employee2} not found!");
+        } catch (UserNotLoggedInException | UserCannotHaveRequestsException e) {
             throw new RuntimeException(e);
         }
 
+        try {
+            EmployeeRequestsDB.addRequest("manager1", "request1", "manager1");
+        } catch (UserCannotHaveRequestsException e) {
+            System.out.println(e.getMessage());
+            assert e.getMessage().equals("User manager1 cannot have requests!");
+        }catch (UserNotFoundException | UserNotLoggedInException e) {
+            throw new RuntimeException(e);
+        }
 
         System.out.println("Ended test");
     }

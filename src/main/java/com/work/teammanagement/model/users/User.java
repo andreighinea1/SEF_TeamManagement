@@ -110,6 +110,7 @@ public class User {
                 ", fullName='" + fullName + '\'' +
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
+                ", managerUsername='" + managerUsername + '\'' +
                 '}';
     }
 }
