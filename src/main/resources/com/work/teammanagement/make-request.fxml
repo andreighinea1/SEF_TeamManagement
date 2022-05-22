@@ -13,19 +13,19 @@
             <Image url="@img/Login.jpeg" />
          </image>
       </ImageView>
-      <DatePicker layoutX="18.0" layoutY="128.0" />
+      <DatePicker layoutX="19.0" layoutY="128.0" />
       <Label layoutX="214.0" layoutY="39.0" text="MAKE REQUEST" textAlignment="CENTER" textFill="WHITE">
          <font>
             <Font size="24.0" />
          </font>
       </Label>
-      <Label layoutX="19.0" layoutY="105.0" text="Select  Date For Request" textFill="WHITE">
+      <Label layoutX="20.0" layoutY="105.0" text="Select  Date For Request" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
-      <ChoiceBox layoutX="393.0" layoutY="128.0" prefHeight="27.0" prefWidth="185.0" />
-      <Label layoutX="397.0" layoutY="105.0" text="Select Type Of Request" textFill="WHITE">
+      <ChoiceBox layoutX="394.0" layoutY="187.0" prefHeight="27.0" prefWidth="185.0" />
+      <Label layoutX="394.0" layoutY="155.0" prefHeight="23.0" prefWidth="185.0" text="Select Type Of Request" textFill="WHITE">
          <font>
             <Font size="18.0" />
          </font>
@@ -42,6 +42,17 @@
       </Button>
       <TextField layoutX="17.0" layoutY="237.0" prefHeight="27.0" prefWidth="254.0" />
       <Label layoutX="19.0" layoutY="214.0" text="Introduce The Reason Of Request" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="397.0" layoutY="226.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="178.0" text="PUBLIC HOLIDAYS">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <ListView layoutX="392.0" layoutY="127.0" prefHeight="29.0" prefWidth="188.0" />
+      <Label layoutX="382.0" layoutY="105.0" text="Ammount Of Vacation Days" textFill="#fcfcfc">
          <font>
             <Font size="18.0" />
          </font>
