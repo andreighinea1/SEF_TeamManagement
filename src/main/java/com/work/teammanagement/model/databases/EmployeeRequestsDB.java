@@ -2,7 +2,7 @@ package com.work.teammanagement.model.databases;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.work.teammanagement.LoggedInUser;
+import com.work.teammanagement.model.users.LoggedInUser;
 import com.work.teammanagement.exceptions.*;
 import com.work.teammanagement.model.requests.employee.EmployeeRequest;
 import org.jetbrains.annotations.NotNull;
