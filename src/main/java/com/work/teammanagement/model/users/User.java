@@ -3,8 +3,8 @@ package com.work.teammanagement.model.users;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.work.teammanagement.model.serializing.UserRoleFromStrConverter;
-import com.work.teammanagement.model.serializing.UserRoleToStrConverter;
+import com.work.teammanagement.model.users.serializing.UserRoleFromStrConverter;
+import com.work.teammanagement.model.users.serializing.UserRoleToStrConverter;
 
 import static com.work.teammanagement.services.Encoding.encodePassword;
 
@@ -111,6 +111,6 @@ public class User {
                 ", address='" + address + '\'' +
                 ", phone='" + phone + '\'' +
                 ", managerUsername='" + managerUsername + '\'' +
-                "}\n";
+                "}";
     }
 }
