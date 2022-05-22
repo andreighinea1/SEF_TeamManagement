@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="380.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="464.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/Login.jpeg" />
+         </image>
+      </ImageView>
+      <DatePicker layoutX="18.0" layoutY="128.0" />
+      <Label layoutX="214.0" layoutY="39.0" text="MAKE REQUEST" textAlignment="CENTER" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="19.0" layoutY="105.0" text="Select  Date For Request" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <ChoiceBox layoutX="393.0" layoutY="128.0" prefHeight="27.0" prefWidth="185.0" />
+      <Label layoutX="397.0" layoutY="105.0" text="Select Type Of Request" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button layoutX="397.0" layoutY="297.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="178.0" text="CANCEL">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button layoutX="28.0" layoutY="297.0" mnemonicParsing="false" prefHeight="49.0" prefWidth="178.0" text="SEND">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
