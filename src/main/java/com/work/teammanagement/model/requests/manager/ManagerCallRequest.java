@@ -2,15 +2,15 @@ package com.work.teammanagement.model.requests.manager;
 
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.work.teammanagement.exceptions.NotEmployeeException;
+import com.work.teammanagement.exceptions.NotManagerException;
 import com.work.teammanagement.exceptions.UserNotFoundException;
 import com.work.teammanagement.model.databases.UsersDB;
 import com.work.teammanagement.model.requests.employee.serializing.ApprovalStatusFromStrConverter;
 import com.work.teammanagement.model.requests.employee.serializing.ApprovalStatusToStrConverter;
 
-public class ManagerRequest {
+public class ManagerCallRequest {
     private String requestTitle;
-    private String calledEmployeeUsername;
+    private String managerUsername; // Manager to which the employee has to respond to
 
     @JsonSerialize(converter = ApprovalStatusToStrConverter.class)
     @JsonDeserialize(converter = ApprovalStatusFromStrConverter.class)
@@ -18,14 +18,14 @@ public class ManagerRequest {
 
 
     // This empty constructor is needed for JSON
-    public ManagerRequest() {
+    public ManagerCallRequest() {
     }
 
-    public ManagerRequest(String requestTitle, String calledEmployeeUsername) throws UserNotFoundException, NotEmployeeException {
-        UsersDB.checkIsEmployee(calledEmployeeUsername);
+    public ManagerCallRequest(String requestTitle, String managerUsername) throws UserNotFoundException, NotManagerException {
+        UsersDB.checkIsManager(managerUsername);
 
         this.requestTitle = requestTitle;
-        this.calledEmployeeUsername = calledEmployeeUsername;
+        this.managerUsername = managerUsername;
         this.employeeResponse = null;
     }
 
@@ -34,8 +34,8 @@ public class ManagerRequest {
         return requestTitle;
     }
 
-    public String getCalledEmployeeUsername() {
-        return calledEmployeeUsername;
+    public String getManagerUsername() {
+        return managerUsername;
     }
 
     public EmployeeResponse getEmployeeResponse() {
@@ -50,7 +50,7 @@ public class ManagerRequest {
     public String toString() {
         return "ManagerRequest{" +
                 "requestTitle='" + requestTitle + '\'' +
-                ", calledEmployeeUsername='" + calledEmployeeUsername + '\'' +
+                ", managerUsername='" + managerUsername + '\'' +
                 ", employeeResponse=" + employeeResponse +
                 '}';
     }

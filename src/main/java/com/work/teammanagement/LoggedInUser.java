@@ -54,6 +54,11 @@ public final class LoggedInUser {
         if (!user.isEmployee())
             throw new ManagerCannotHaveRequestsException(user.getUsername());
     }
+    public static void checkLoggedInAsEmployee(String username) throws ManagerCannotHaveRequestsException, UserNotLoggedInException {
+        checkLoggedIn(username);
+        if (!user.isEmployee())
+            throw new ManagerCannotHaveRequestsException(user.getUsername());
+    }
 
     // Check that the current logged-in user is the manager assigned to the provided employee username
     public static void checkAssignedManager(String employeeUsername) throws UserNotLoggedInException, UserNotFoundException, NotEnoughPrivilegesException, ManagerMismatchException {

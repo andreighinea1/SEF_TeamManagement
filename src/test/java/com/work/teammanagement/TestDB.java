@@ -1,7 +1,7 @@
 package com.work.teammanagement;
 
 import com.work.teammanagement.exceptions.*;
-import com.work.teammanagement.model.databases.ManagerRequestsDB;
+import com.work.teammanagement.model.databases.ManagerCallRequestsDB;
 import com.work.teammanagement.model.databases.UsersDB;
 import com.work.teammanagement.model.users.UserRole;
 import com.work.teammanagement.model.databases.EmployeeRequestsDB;
@@ -20,22 +20,22 @@ public class TestDB {
         EmployeeRequestsDB.print();
         EmployeeRequestsDB.unloadRequestsDB();
 
-        ManagerRequestsDB.loadRequestsDB();
-        ManagerRequestsDB.print();
-        ManagerRequestsDB.unloadRequestsDB();
+        ManagerCallRequestsDB.loadRequestsDB();
+        ManagerCallRequestsDB.print();
+        ManagerCallRequestsDB.unloadRequestsDB();
 
 
         UsersDB.loadUsersDB();
         EmployeeRequestsDB.loadRequestsDB();
-        ManagerRequestsDB.loadRequestsDB();
+        ManagerCallRequestsDB.loadRequestsDB();
 
         UsersDB.print();
         EmployeeRequestsDB.print();
-        ManagerRequestsDB.print();
+        ManagerCallRequestsDB.print();
 
         UsersDB.unloadUsersDB();
         EmployeeRequestsDB.unloadRequestsDB();
-        ManagerRequestsDB.unloadRequestsDB();
+        ManagerCallRequestsDB.unloadRequestsDB();
     }
 
     private static void registerTest() {
@@ -68,6 +68,9 @@ public class TestDB {
             LoggedInUser.print();
 
             LoginService.loginUser("employee1", "password5", UserRole.Employee);
+            LoggedInUser.print();
+
+            LoginService.loginUser("employee2", "password5", UserRole.Employee);
             LoggedInUser.print();
 
 
@@ -134,7 +137,7 @@ public class TestDB {
             // FAIL
             System.out.println(EmployeeRequestsDB.getUserRequestsForManager("employee1"));
         } catch (UserNotFoundException | NotEnoughPrivilegesException | UserNotLoggedInException |
-                 UserNoRequestsException e) {
+                 NoEmployeeRequestsException e) {
             throw new RuntimeException(e);
         } catch (ManagerMismatchException e) {
             System.out.println(e.getMessage());
@@ -146,37 +149,72 @@ public class TestDB {
         } catch (UserNotFoundException e) {
             System.out.println(e.getMessage());
         } catch (UserNotLoggedInException | ManagerMismatchException | NotEnoughPrivilegesException |
-                 UserNoRequestsException e) {
+                 NoEmployeeRequestsException e) {
             throw new RuntimeException(e);
         }
     }
 
-    private static void addManagerRequests() {
+    private static void addManagerCallRequests() {
         System.out.println();
         System.out.println("Test Add Manager Requests");
+        System.out.println("---------- addRequest");
         try {
             UsersDB.loadUsersDB();
-            ManagerRequestsDB.unloadRequestsDB();
+            ManagerCallRequestsDB.unloadRequestsDB();
 
             LoginService.loginUser("manager1", "password1", UserRole.Manager);
-            ManagerRequestsDB.addRequest("request1", "employee1");
+            ManagerCallRequestsDB.addRequest("request1", "employee1");
+            ManagerCallRequestsDB.addRequest("request1", "employee2");
 
-            ManagerRequestsDB.print();
+            ManagerCallRequestsDB.print();
 
             // FAIL
-            ManagerRequestsDB.addRequest("request2", "manager1");
+            ManagerCallRequestsDB.addRequest("request2", "manager1");
         } catch (NotEmployeeException e) {
             System.out.println(e.getMessage());
-        } catch (UserNotLoggedInException | NotEnoughPrivilegesException | UserNotFoundException e) {
+        } catch (UserNotLoggedInException | NotEnoughPrivilegesException | UserNotFoundException |
+                 NotManagerException e) {
             throw new RuntimeException(e);
         }
+
+        System.out.println("---------- respondToRequest");
+        try {
+            LoginService.loginUser("employee1", "password5", UserRole.Employee);
+            ManagerCallRequestsDB.respondToRequest(true, "in a few hours");
+            ManagerCallRequestsDB.print();
+
+            // FAIL
+            ManagerCallRequestsDB.respondToRequest(true, "in a few hours");
+        } catch (ManagerCannotHaveRequestsException | UserNotLoggedInException |
+                 UserNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (NoManagerCallRequestsException e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("---------- acknowledgeResponse");
+        try {
+            LoginService.loginUser("manager1", "password1", UserRole.Manager);
+            ManagerCallRequestsDB.acknowledgeResponse("employee1");
+            ManagerCallRequestsDB.print();
+
+            // FAIL
+            LoginService.loginUser("employee1", "password5", UserRole.Employee);
+            ManagerCallRequestsDB.acknowledgeResponse("employee1");
+        } catch (UserNotLoggedInException | UserNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (NotEnoughPrivilegesException e) {
+            System.out.println(e.getMessage());
+        }
+
+        System.out.println("---------- addRequest");
         try {
             // FAIL
             LoginService.loginUser("employee1", "password5", UserRole.Employee);
-            ManagerRequestsDB.addRequest("request3", "employee2");
+            ManagerCallRequestsDB.addRequest("request3", "employee2");
         } catch (NotEnoughPrivilegesException e) {
             System.out.println(e.getMessage());
-        } catch (UserNotFoundException | UserNotLoggedInException | NotEmployeeException e) {
+        } catch (UserNotFoundException | UserNotLoggedInException | NotEmployeeException | NotManagerException e) {
             throw new RuntimeException(e);
         }
     }
@@ -186,17 +224,17 @@ public class TestDB {
 //        System.out.println("Test Get Employee Requests");
 //        try {
 //            UsersDB.loadUsersDB();
-//            ManagerRequestsDB.loadRequestsDB();
+//            ManagerCallRequestsDB.loadRequestsDB();
 //
 //            LoginService.loginUser("manager1", "password1", UserRole.Manager);
-//            System.out.println(ManagerRequestsDB.getUserRequestsForManager("employee1"));
+//            System.out.println(ManagerCallRequestsDB.getUserRequestsForManager("employee1"));
 //
 //            LoginService.loginUser("manager2", "123", UserRole.Manager);
-//            System.out.println(ManagerRequestsDB.getUserRequestsForManager("employee2"));
+//            System.out.println(ManagerCallRequestsDB.getUserRequestsForManager("employee2"));
 //
 //
 //            // FAIL
-//            System.out.println(ManagerRequestsDB.getUserRequestsForManager("employee1"));
+//            System.out.println(ManagerCallRequestsDB.getUserRequestsForManager("employee1"));
 //        } catch (UserNotFoundException | NotEnoughPrivilegesException | UserNotLoggedInException |
 //                 UserNoRequestsException e) {
 //            throw new RuntimeException(e);
@@ -206,7 +244,7 @@ public class TestDB {
 //        try {
 //            // FAIL
 //            LoginService.loginUser("manager1", "password1", UserRole.Manager);
-//            System.out.println(ManagerRequestsDB.getUserRequestsForManager("employee3"));
+//            System.out.println(ManagerCallRequestsDB.getUserRequestsForManager("employee3"));
 //        } catch (UserNotFoundException e) {
 //            System.out.println(e.getMessage());
 //        } catch (UserNotLoggedInException | ManagerMismatchException | NotEnoughPrivilegesException |
@@ -223,7 +261,7 @@ public class TestDB {
         addEmployeeRequests();
         getEmployeeRequests();
 
-        addManagerRequests();
+        addManagerCallRequests();
         getManagerRequests();
 
 

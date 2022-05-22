@@ -65,3 +65,4 @@ target/
 /UsersDB.json
 /ManagerRequestsDB.json
 /EmployeeRequestsDB.json
+/ManagerCallRequestsDB.json
