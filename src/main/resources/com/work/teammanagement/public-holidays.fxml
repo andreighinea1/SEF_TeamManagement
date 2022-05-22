@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="384.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="609.0" layoutY="-2.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@img/Login.jpeg" />
+         </image>
+      </ImageView>
+      <Label layoutX="177.0" layoutY="14.0" text="PUBLIC HOLIDAYS LIST" textFill="WHITE">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="38.0" layoutY="61.0" prefHeight="29.0" prefWidth="524.0" text="1 ianuarie, 2 ianuarie — Anul Nou" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="38.0" layoutY="90.0" prefHeight="29.0" prefWidth="524.0" text="24 ianuarie — Ziua Unirii Principatelor Române" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="38.0" layoutY="119.0" prefHeight="29.0" prefWidth="524.0" text="22 aprilie — Vinerea Mare" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="38.0" layoutY="148.0" prefHeight="29.0" prefWidth="524.0" text="24 -25 aprilie — Paște ortodox 2022" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="38.0" layoutY="177.0" prefHeight="29.0" prefWidth="524.0" text="1 mai — Ziua Muncii" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="38.0" layoutY="206.0" prefHeight="29.0" prefWidth="524.0" text="1 iunie — Ziua Copilului" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="38.0" layoutY="235.0" prefHeight="29.0" prefWidth="524.0" text="12 iunie (duminică) - Rusalii, 13 iunie (luni) — A doua zi de Rusalii" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="38.0" layoutY="264.0" prefHeight="29.0" prefWidth="524.0" text="15 august — Adormirea Maicii Domnului" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="38.0" layoutY="293.0" prefHeight="29.0" prefWidth="524.0" text="30 noiembrie — Sfântul Andrei" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="38.0" layoutY="322.0" prefHeight="29.0" prefWidth="524.0" text="1 decembrie — Ziua Națională a României" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="38.0" layoutY="351.0" prefHeight="29.0" prefWidth="524.0" text="25 decembrie, 26 decembrie — Crăciunul" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
