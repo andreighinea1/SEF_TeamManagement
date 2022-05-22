@@ -29,10 +29,7 @@ public class TestDB {
                     null, null, null);
 
             RegisterService.registerUser("manager1", "different password", UserRole.Manager, "",
-                    null, null, null);
-
-            UsersDB.loadUsersDB();
-            UsersDB.print();
+                    null, null, null); // This fails
         } catch (UsernameAlreadyExistsException e) {
             System.out.println(e.getMessage());
         } catch (UserNotFoundException e) {
@@ -71,22 +68,24 @@ public class TestDB {
             EmployeeRequestsDB.print();
 
             LoginService.loginUser("employee1", "password5", UserRole.Employee);
-            EmployeeRequestsDB.addRequest("employee1", "request2", "manager1");
-            EmployeeRequestsDB.addRequest("employee1", "request3", "manager1");
+            EmployeeRequestsDB.addRequest("request2", "manager1");
+            EmployeeRequestsDB.addRequest("request3", "manager1");
 
             EmployeeRequestsDB.print();
 
-            EmployeeRequestsDB.addRequest("employee2", "request3", "manager1");
+            LoginService.loginUser("employee2", "ceva", UserRole.Employee); // here is exp
+            EmployeeRequestsDB.addRequest("request3", "manager1");
         } catch (UserNotFoundException e) {
             System.out.println(e.getMessage());
             assert e.getMessage().equals("{username: employee2} not found!");
-        } catch (UserNotLoggedInException | UserCannotHaveRequestsException e) {
+        } catch (UserNotLoggedInException | ManagerCannotHaveRequestsException e) {
             throw new RuntimeException(e);
         }
 
         try {
-            EmployeeRequestsDB.addRequest("manager1", "request1", "manager1");
-        } catch (UserCannotHaveRequestsException e) {
+            LoginService.loginUser("manager1", "password1", UserRole.Manager);
+            EmployeeRequestsDB.addRequest("request1", "manager1");
+        } catch (ManagerCannotHaveRequestsException e) {
             System.out.println(e.getMessage());
             assert e.getMessage().equals("User manager1 cannot have requests!");
         }catch (UserNotFoundException | UserNotLoggedInException e) {

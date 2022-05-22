@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.work.teammanagement.LoggedInUser;
 import com.work.teammanagement.exceptions.NotEnoughPrivilegesException;
-import com.work.teammanagement.exceptions.UserCannotHaveRequestsException;
+import com.work.teammanagement.exceptions.ManagerCannotHaveRequestsException;
 import com.work.teammanagement.exceptions.UserNotFoundException;
 import com.work.teammanagement.exceptions.UserNotLoggedInException;
 import com.work.teammanagement.model.EmployeeRequest;
@@ -25,29 +25,26 @@ public final class EmployeeRequestsDB {
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private static boolean loaded = false;
 
-    public static void addRequest(String username, String requestTitle, String managerUserName) throws UserNotFoundException, UserNotLoggedInException, UserCannotHaveRequestsException {
-        if (UsersDB.findUserRole(username) == UserRole.Manager)
-            throw new UserCannotHaveRequestsException(username);
-
-        getUserRequestsForAdding(username).add(new EmployeeRequest(requestTitle, managerUserName));
+    public static void addRequest(String requestTitle, String managerUserName) throws UserNotFoundException, UserNotLoggedInException, ManagerCannotHaveRequestsException {
+        String loggedInUsername = LoggedInUser.getEmployeeUsername();
+        getUserRequestsForAdding(loggedInUsername).add(new EmployeeRequest(requestTitle, managerUserName));
         saveRequestsDB(); // TODO: Not perfect as it saves the whole DB, but it is what it is
     }
 
     @NotNull
-    private static ArrayList<EmployeeRequest> getUserRequestsForAdding(String username) throws UserNotFoundException, UserNotLoggedInException {
-        UsersDB.verifyUsernameExists(username);
-        LoggedInUser.checkLoggedIn(username);
-        ArrayList<EmployeeRequest> requests = usernameToRequests.get(username);
+    private static ArrayList<EmployeeRequest> getUserRequestsForAdding(String loggedInUsername) throws UserNotFoundException {
+        UsersDB.verifyUsernameExists(loggedInUsername);
+        ArrayList<EmployeeRequest> requests = usernameToRequests.get(loggedInUsername);
         if (requests == null)
             throw new RuntimeException("requests should not be null");
         return requests;
     }
 
     @NotNull
-    public static ArrayList<EmployeeRequest> getOtherUserRequests(String username) throws UserNotFoundException, NotEnoughPrivilegesException {
-        UsersDB.verifyUsernameExists(username);
+    public static ArrayList<EmployeeRequest> getOtherUserRequests(String otherUsername) throws UserNotFoundException, NotEnoughPrivilegesException, UserNotLoggedInException {
+        UsersDB.verifyUsernameExists(otherUsername);
         LoggedInUser.checkLoggedInAsManager();
-        ArrayList<EmployeeRequest> requests = usernameToRequests.get(username);
+        ArrayList<EmployeeRequest> requests = usernameToRequests.get(otherUsername);
         if (requests == null)
             throw new RuntimeException("requests should not be null");
         return requests;

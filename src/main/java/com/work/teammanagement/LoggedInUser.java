@@ -1,14 +1,10 @@
 package com.work.teammanagement;
 
 import com.work.teammanagement.exceptions.NotEnoughPrivilegesException;
-import com.work.teammanagement.exceptions.UserNotFoundException;
+import com.work.teammanagement.exceptions.ManagerCannotHaveRequestsException;
 import com.work.teammanagement.exceptions.UserNotLoggedInException;
-import com.work.teammanagement.model.EmployeeRequest;
 import com.work.teammanagement.model.users.User;
 import com.work.teammanagement.model.users.UserRole;
-import com.work.teammanagement.model.databases.EmployeeRequestsDB;
-
-import java.util.ArrayList;
 
 public final class LoggedInUser {
     private static User user;
@@ -45,15 +41,31 @@ public final class LoggedInUser {
             throw new UserNotLoggedInException();
     }
 
-    public static void checkLoggedInAsManager() throws NotEnoughPrivilegesException {
-
-        if (!isLoggedInAsManager())
+    public static void checkLoggedInAsManager() throws NotEnoughPrivilegesException, UserNotLoggedInException {
+        checkLoggedIn();
+        if (!user.isManager())
             throw new NotEnoughPrivilegesException();
+    }
+
+    public static void checkLoggedInAsEmployee() throws ManagerCannotHaveRequestsException, UserNotLoggedInException {
+        checkLoggedIn();
+        if (!user.isEmployee())
+            throw new ManagerCannotHaveRequestsException(getUsername());
     }
 
 
     public static String getUsername() throws UserNotLoggedInException {
         checkLoggedIn();
+        return user.getUsername();
+    }
+
+    public static String getManagerUsername() throws NotEnoughPrivilegesException, UserNotLoggedInException {
+        checkLoggedInAsManager();
+        return user.getUsername();
+    }
+
+    public static String getEmployeeUsername() throws UserNotLoggedInException, ManagerCannotHaveRequestsException {
+        checkLoggedInAsEmployee();
         return user.getUsername();
     }
 
