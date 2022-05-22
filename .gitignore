@@ -63,4 +63,6 @@ target/
 
 ### Other
 /UsersDB.json
-/RequestsDB.json
+/ManagerRequestsDB.json
+/EmployeeRequestsDB.json
+/ManagerCallRequestsDB.json

@@ -4,7 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.work.teammanagement.LoggedInUser;
 import com.work.teammanagement.exceptions.*;
-import com.work.teammanagement.model.requests.EmployeeRequest;
+import com.work.teammanagement.model.requests.employee.EmployeeRequest;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
@@ -15,37 +15,36 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public final class EmployeeRequestsDB {
-    private static HashMap<String, ArrayList<EmployeeRequest>> usernameToRequests = new HashMap<>();
-    private static final String dbName = "RequestsDB.json";
+    private static HashMap<String, ArrayList<EmployeeRequest>> employeeUsernameToRequests = new HashMap<>();
+    private static final String dbName = "EmployeeRequestsDB.json";
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private static boolean loaded = false;
 
-    public static void addRequest(String requestTitle, String managerUserName) throws UserNotFoundException, UserNotLoggedInException, ManagerCannotHaveRequestsException {
-        String loggedInUsername = LoggedInUser.getEmployeeUsername();
-        getUserRequestsForAdding(loggedInUsername).add(new EmployeeRequest(requestTitle, managerUserName));
+    public static void addRequest(String requestTitle, String managerUserName) throws UserNotFoundException, UserNotLoggedInException, ManagerCannotHaveRequestsException, NotManagerException {
+        getUserRequestsForLoggedInUser().add(new EmployeeRequest(requestTitle, managerUserName));
         saveRequestsDB(); // TODO: Not perfect as it saves the whole DB, but it is what it is
     }
 
     @NotNull
-    private static ArrayList<EmployeeRequest> getUserRequestsForAdding(String loggedInUsername) throws UserNotFoundException {
-        UsersDB.verifyUsernameExists(loggedInUsername);
-        usernameToRequests.putIfAbsent(loggedInUsername, new ArrayList<>()); // IfAbsent because we are adding
-        ArrayList<EmployeeRequest> requests = usernameToRequests.get(loggedInUsername);
+    private static ArrayList<EmployeeRequest> getUserRequestsForLoggedInUser() throws ManagerCannotHaveRequestsException, UserNotLoggedInException {
+        String loggedInUsername = LoggedInUser.getEmployeeUsername();
+        employeeUsernameToRequests.putIfAbsent(loggedInUsername, new ArrayList<>()); // IfAbsent because we are adding
+        ArrayList<EmployeeRequest> requests = employeeUsernameToRequests.get(loggedInUsername);
         if (requests == null)
             throw new RuntimeException("requests should not be null");
         return requests;
     }
 
     @NotNull
-    public static ArrayList<EmployeeRequest> getUserRequestsForManager(String otherUsername) throws UserNotFoundException, NotEnoughPrivilegesException, UserNotLoggedInException, ManagerMismatchException, UserNoRequestsException {
+    public static ArrayList<EmployeeRequest> getUserRequestsForManager(String otherUsername) throws UserNotFoundException, NotEnoughPrivilegesException, UserNotLoggedInException, ManagerMismatchException, NoEmployeeRequestsException {
         UsersDB.verifyUsernameExists(otherUsername);
         LoggedInUser.checkLoggedInAsManager();
         LoggedInUser.checkAssignedManager(otherUsername);
 
-        ArrayList<EmployeeRequest> requests = usernameToRequests.get(otherUsername);
-        if (requests == null)
-            throw new UserNoRequestsException(otherUsername);
-        return requests;
+        ArrayList<EmployeeRequest> employeeRequests = employeeUsernameToRequests.get(otherUsername);
+        if (employeeRequests == null)
+            throw new NoEmployeeRequestsException(otherUsername);
+        return employeeRequests;
     }
 
 
@@ -53,8 +52,8 @@ public final class EmployeeRequestsDB {
         try {
             HashMap<String, ArrayList<EmployeeRequest>> temp = objectMapper.readValue(Paths.get(dbName).toFile(), new TypeReference<>() {
             });
-            if(temp != null) {
-                usernameToRequests = temp;
+            if (temp != null) {
+                employeeUsernameToRequests = temp;
                 loaded = true;
             }
         } catch (FileNotFoundException ignored) {
@@ -64,13 +63,13 @@ public final class EmployeeRequestsDB {
     }
 
     public static void unloadRequestsDB() {
-        usernameToRequests = new HashMap<>();
+        employeeUsernameToRequests = new HashMap<>();
         loaded = false;
     }
 
     public static void saveRequestsDB() {
         try {
-            objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(dbName), usernameToRequests);
+            objectMapper.writerWithDefaultPrettyPrinter().writeValue(new File(dbName), employeeUsernameToRequests);
         } catch (IOException e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -82,6 +81,6 @@ public final class EmployeeRequestsDB {
     }
 
     public static void print() {
-        System.out.println("EmployeeRequestsDB: " + usernameToRequests);
+        System.out.println("EmployeeRequestsDB: " + employeeUsernameToRequests);
     }
 }
