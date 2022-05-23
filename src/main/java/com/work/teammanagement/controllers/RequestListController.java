@@ -1,6 +1,7 @@
 package com.work.teammanagement.controllers;
 
 import com.work.teammanagement.Main;
+import com.work.teammanagement.PopupWindow;
 import com.work.teammanagement.exceptions.*;
 import com.work.teammanagement.model.databases.EmployeeRequestsDB;
 import com.work.teammanagement.model.requests.employee.EmployeeRequest;
@@ -67,7 +68,7 @@ public class RequestListController {
     @FXML
     private Button backButton;
 
-    public void initialize() throws UserNotFoundException, NoEmployeeRequestsException, UserNotLoggedInException, NotEnoughPrivilegesException, ManagerMismatchException, ManagerCannotHaveRequestsException {
+    public void initialize() throws UserNotFoundException, UserNotLoggedInException, NotEnoughPrivilegesException, ManagerMismatchException, ManagerCannotHaveRequestsException, IOException {
         requestsListView.setCellFactory(new Callback<ListView<EmployeeRequest>, ListCell<EmployeeRequest>>() {
             @Override
             public ListCell<EmployeeRequest> call(ListView<EmployeeRequest> param) {
@@ -75,7 +76,13 @@ public class RequestListController {
             }
         });
 
-        ObservableList<EmployeeRequest> observableList = FXCollections.observableArrayList(EmployeeRequestsDB.getUserRequests());
+        ObservableList<EmployeeRequest> observableList = null;
+        try {
+            observableList = FXCollections.observableArrayList(EmployeeRequestsDB.getUserRequests());
+        } catch (NoEmployeeRequestsException e) {
+            PopupWindow.openPopup("request-list-error");
+            Main.changeScene("menu");
+        }
         requestsListView.setItems(observableList);
     }
 

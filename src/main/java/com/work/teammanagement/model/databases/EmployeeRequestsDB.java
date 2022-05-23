@@ -39,7 +39,7 @@ public final class EmployeeRequestsDB {
     @NotNull
     public static ArrayList<EmployeeRequest> getUserRequests() throws UserNotFoundException, UserNotLoggedInException, ManagerMismatchException, NoEmployeeRequestsException, ManagerCannotHaveRequestsException, NotEnoughPrivilegesException {
         String employeeUsername = LoggedInUser.getEmployeeUsername();
-        LoggedInUser.checkAssignedManager(employeeUsername);
+//        LoggedInUser.checkAssignedManager(employeeUsername);
 
         ArrayList<EmployeeRequest> employeeRequests = employeeUsernameToRequests.get(employeeUsername);
         if (employeeRequests == null)
