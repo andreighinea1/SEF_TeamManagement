@@ -126,4 +126,8 @@ public class User {
                 ", managerUsername='" + managerUsername + '\'' +
                 "}";
     }
+
+    public String toStringForList() {
+        return "Uname: " + username + ", " + "MgUname: " + managerUsername + ", " + fullName + ", " + address + ", " + phone;
+    }
 }
