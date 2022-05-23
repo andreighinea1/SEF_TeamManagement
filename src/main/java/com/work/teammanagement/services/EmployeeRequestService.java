@@ -14,4 +14,8 @@ public final class EmployeeRequestService {
     public static void requestWorkFromHome(String startDate, String endDate, String requestText, String managerUserName) throws UserNotFoundException, ManagerCannotHaveRequestsException, UserNotLoggedInException, NotManagerException {
         EmployeeRequestsDB.addRequest("Work from home: " + startDate + "-" + endDate, requestText, managerUserName);
     }
+
+    public static void requestShortTimeAbsence(String date, String requestText, String managerUserName) throws UserNotFoundException, ManagerCannotHaveRequestsException, UserNotLoggedInException, NotManagerException {
+        EmployeeRequestsDB.addRequest("Short time absence: " + date, requestText, managerUserName);
+    }
 }
