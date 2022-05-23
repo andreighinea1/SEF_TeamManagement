@@ -1,6 +1,7 @@
 package com.work.teammanagement.controllers;
 
 import com.work.teammanagement.Main;
+import com.work.teammanagement.services.LoginService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -21,19 +22,19 @@ public class EmployeeMenuController {
     private Button requestStatusButton;
 
     public void goToRequestStatusPage(ActionEvent event) throws IOException {
-        Main.changeScene("request-status-page.fxml");
+        Main.changeScene("list-of-requests-page");
     }
 
     public void goToMakeRequestPage(ActionEvent event) throws IOException {
-        Main.changeScene("make-request-page.fxml");
+        Main.changeScene("make-request-page");
     }
 
     public void goToArrivalTimePage(ActionEvent event) throws IOException {
-        Main.changeScene("arrival-time-page.fxml");
+        Main.changeScene("arrival-time-page");
     }
 
-    public void goToLogoutPage(ActionEvent event) throws IOException {
-        Main.changeScene("logout-page.fxml");
+    public void logout(ActionEvent event) throws IOException {
+        LoginService.logoutUser();
     }
 
 }

@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="379.0" prefWidth="581.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.work.teammanagement.controllers.MakeRequestController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="379.0" prefWidth="581.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.work.teammanagement.controllers.MakeRequestController">
     <children>
         <ImageView fitHeight="464.0" fitWidth="600.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -34,18 +23,18 @@
                 <Font size="18.0" />
             </font>
         </Label>
-        <ChoiceBox fx:id="TypeRequestChoiceBox" layoutX="394.0" layoutY="190.0" prefHeight="27.0" prefWidth="185.0" />
+        <ChoiceBox fx:id="typeRequestChoiceBox" layoutX="394.0" layoutY="190.0" prefHeight="27.0" prefWidth="185.0" />
         <Label layoutX="394.0" layoutY="167.0" prefHeight="23.0" prefWidth="185.0" text="Select Type Of Request" textFill="WHITE">
             <font>
                 <Font size="18.0" />
             </font>
         </Label>
-        <Button fx:id="cancelButton" layoutX="397.0" layoutY="297.0" mnemonicParsing="false" onAction="#cancelfunction" prefHeight="49.0" prefWidth="178.0" text="CANCEL">
+        <Button fx:id="cancelButton" layoutX="397.0" layoutY="297.0" mnemonicParsing="false" onAction="#cancel" prefHeight="49.0" prefWidth="178.0" text="CANCEL">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <Button fx:id="sendButton" layoutX="28.0" layoutY="297.0" mnemonicParsing="false" onAction="#sendinfo" prefHeight="49.0" prefWidth="178.0" text="SEND">
+        <Button fx:id="sendButton" layoutX="28.0" layoutY="297.0" mnemonicParsing="false" onAction="#send" prefHeight="49.0" prefWidth="178.0" text="SEND">
             <font>
                 <Font size="18.0" />
             </font>
@@ -56,13 +45,12 @@
                 <Font size="18.0" />
             </font>
         </Label>
-        <Button fx:id="publicholidaysButton" layoutX="397.0" layoutY="226.0" mnemonicParsing="false" onAction="#goToPublicHolidaysPage" prefHeight="49.0" prefWidth="178.0" text="PUBLIC HOLIDAYS">
+        <Button fx:id="publicHolidaysButton" layoutX="397.0" layoutY="226.0" mnemonicParsing="false" onAction="#goToPublicHolidaysPage" prefHeight="49.0" prefWidth="178.0" text="PUBLIC HOLIDAYS">
             <font>
                 <Font size="18.0" />
             </font>
         </Button>
-        <ListView fx:id="VacationListView" layoutX="392.0" layoutY="127.0" prefHeight="29.0" prefWidth="188.0" />
-        <Label layoutX="382.0" layoutY="105.0" text="Ammount Of Vacation Days" textFill="#fcfcfc">
+        <Label fx:id="availableVacationDaysLabel" layoutX="318.0" layoutY="105.0" text="Available Vacations Days" textFill="#fcfcfc">
             <font>
                 <Font size="18.0" />
             </font>

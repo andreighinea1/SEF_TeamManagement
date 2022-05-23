@@ -31,7 +31,7 @@
                     </font>
                 </Button>
                 <Button fx:id="logoutButton" layoutX="385.0" layoutY="235.0" mnemonicParsing="false"
-                    onAction="#goToLogoutPage" prefHeight="47.0" prefWidth="151.0" text="LOGOUT">
+                    onAction="#logout" prefHeight="47.0" prefWidth="151.0" text="LOGOUT">
                     <font>
                         <Font size="14.0" />
                     </font>

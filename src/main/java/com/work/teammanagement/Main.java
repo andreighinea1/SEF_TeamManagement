@@ -37,19 +37,20 @@ public class Main extends Application {
         primaryStage.setResizable(false);
         primaryStage.setTitle("Team Management");
 
-        try {
-            RegisterService.registerUser("test5", "test", UserRole.Manager, null, null, null, null);
-        } catch (UsernameAlreadyExistsException e) {
+//        try {
+//            RegisterService.registerUser("test5", "test", UserRole.Manager, null, null, null, null);
+//        } catch (UsernameAlreadyExistsException e) {
+//
+//        }
+//        try {
+//            LoginService.loginUser("test5", "test", UserRole.Manager);
+//        } catch (UserNotFoundException e) {
+//            throw new RuntimeException(e);
+//        }
+//        Parent root = FXMLLoader.load(PageSelector.selectPage("list-of-employees-page"));
 
-        }
-        try {
-            LoginService.loginUser("test5", "test", UserRole.Manager);
-        } catch (UserNotFoundException e) {
-            throw new RuntimeException(e);
-        }
-
-        Parent root = FXMLLoader.load(PageSelector.selectPage("employee-list"));
-        scene = new Scene(root, 800, 600);
+        Parent root = FXMLLoader.load(PageSelector.selectPage("login-page"));
+        scene = new Scene(root, 581, 379);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

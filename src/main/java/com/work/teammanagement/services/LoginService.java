@@ -1,5 +1,6 @@
 package com.work.teammanagement.services;
 
+import com.work.teammanagement.Main;
 import com.work.teammanagement.exceptions.UserNotFoundException;
 import com.work.teammanagement.model.databases.UsersDB;
 import com.work.teammanagement.model.users.UserRole;
@@ -11,5 +12,6 @@ public final class LoginService {
 
     public static void logoutUser() {
         LoggedInUser.logoutUser();
+        Main.changeScene("login-page");
     }
 }
