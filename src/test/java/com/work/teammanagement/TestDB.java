@@ -3,7 +3,7 @@ package com.work.teammanagement;
 import com.work.teammanagement.exceptions.*;
 import com.work.teammanagement.model.databases.ManagerCallRequestsDB;
 import com.work.teammanagement.model.databases.UsersDB;
-import com.work.teammanagement.model.users.LoggedInUser;
+import com.work.teammanagement.services.LoggedInUser;
 import com.work.teammanagement.model.users.UserRole;
 import com.work.teammanagement.model.databases.EmployeeRequestsDB;
 import com.work.teammanagement.services.LoginService;

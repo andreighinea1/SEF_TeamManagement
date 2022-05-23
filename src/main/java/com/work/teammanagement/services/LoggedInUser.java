@@ -1,7 +1,9 @@
-package com.work.teammanagement.model.users;
+package com.work.teammanagement.services;
 
 import com.work.teammanagement.exceptions.*;
 import com.work.teammanagement.model.databases.UsersDB;
+import com.work.teammanagement.model.users.User;
+import com.work.teammanagement.model.users.UserRole;
 
 import java.util.Objects;
 
