@@ -68,7 +68,7 @@ public class RequestListController {
     @FXML
     private Button backButton;
 
-    public void initialize() throws UserNotFoundException, UserNotLoggedInException, NotEnoughPrivilegesException, ManagerMismatchException, ManagerCannotHaveRequestsException, IOException {
+    public void initialize() throws UserNotFoundException, UserNotLoggedInException, NotEnoughPrivilegesException, ManagerMismatchException, NotLoggedInAsEmployeeException, IOException {
         requestsListView.setCellFactory(new Callback<ListView<EmployeeRequest>, ListCell<EmployeeRequest>>() {
             @Override
             public ListCell<EmployeeRequest> call(ListView<EmployeeRequest> param) {
@@ -78,7 +78,7 @@ public class RequestListController {
 
         ObservableList<EmployeeRequest> observableList = null;
         try {
-            observableList = FXCollections.observableArrayList(EmployeeRequestsDB.getUserRequests());
+            observableList = FXCollections.observableArrayList(EmployeeRequestsDB.getAllUserRequestsForManager());
         } catch (NoEmployeeRequestsException e) {
             PopupWindow.openPopup("request-list-error");
             Main.changeScene("menu");

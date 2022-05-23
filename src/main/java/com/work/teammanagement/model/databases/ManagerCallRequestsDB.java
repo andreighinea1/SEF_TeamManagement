@@ -27,12 +27,12 @@ public final class ManagerCallRequestsDB {
     }
 
     // Employee responds to the request
-    public static void respondToRequest(boolean canArriveToday, String arrivalTime) throws ManagerCannotHaveRequestsException, UserNotLoggedInException, NoManagerCallRequestsException {
+    public static void respondToRequest(boolean canArriveToday, String arrivalTime) throws NotLoggedInAsEmployeeException, UserNotLoggedInException, NoManagerCallRequestsException {
         getRequestForLoggedInEmployee().updateEmployeeResponse(canArriveToday, arrivalTime);
         saveRequestsDB(); // TODO: Not perfect as it saves the whole DB, but it is what it is
     }
 
-    private static ManagerCallRequest getRequestForLoggedInEmployee() throws NoManagerCallRequestsException, ManagerCannotHaveRequestsException, UserNotLoggedInException {
+    private static ManagerCallRequest getRequestForLoggedInEmployee() throws NoManagerCallRequestsException, NotLoggedInAsEmployeeException, UserNotLoggedInException {
         String loggedInEmployeeUsername = LoggedInUser.getEmployeeUsername();
         ManagerCallRequest managerCallRequest = employeeUsernameToRequests.get(loggedInEmployeeUsername);
         if (managerCallRequest == null)

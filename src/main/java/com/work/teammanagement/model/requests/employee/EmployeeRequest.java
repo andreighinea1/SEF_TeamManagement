@@ -67,4 +67,8 @@ public class EmployeeRequest {
                 ", approvalStatus=" + approvalStatus +
                 "}";
     }
+
+    public String toStringForList(){
+        return requestTitle + ", " + managerUserName + ", " + approvalStatus;
+    }
 }

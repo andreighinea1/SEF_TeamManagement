@@ -43,10 +43,10 @@ public final class LoggedInUser {
             throw new NotEnoughPrivilegesException(user.getUsername());
     }
 
-    public static void checkLoggedInAsEmployee() throws ManagerCannotHaveRequestsException, UserNotLoggedInException {
+    public static void checkLoggedInAsEmployee() throws NotLoggedInAsEmployeeException, UserNotLoggedInException {
         checkLoggedIn();
         if (!user.isEmployee())
-            throw new ManagerCannotHaveRequestsException(user.getUsername());
+            throw new NotLoggedInAsEmployeeException(user.getUsername());
     }
 
     // Check that the current logged-in user is the manager assigned to the provided employee username
@@ -68,12 +68,12 @@ public final class LoggedInUser {
         return user.getUsername();
     }
 
-    public static String getEmployeeUsername() throws UserNotLoggedInException, ManagerCannotHaveRequestsException {
+    public static String getEmployeeUsername() throws UserNotLoggedInException, NotLoggedInAsEmployeeException {
         checkLoggedInAsEmployee();
         return user.getUsername();
     }
 
-    public static int getEmployeeAvailableHolidayDays() throws UserNotLoggedInException, ManagerCannotHaveRequestsException {
+    public static int getEmployeeAvailableHolidayDays() throws UserNotLoggedInException, NotLoggedInAsEmployeeException {
         checkLoggedInAsEmployee();
         return user.getAvailableHolidayDays();
     }

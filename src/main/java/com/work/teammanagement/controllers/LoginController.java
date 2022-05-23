@@ -32,6 +32,10 @@ public class LoginController {
     private String[] roles = {"Employee", "Manager"};
 
     public void login(ActionEvent actionEvent) throws IOException {
+        if(roleChoiceBox.getValue() == null){
+            PopupWindow.openPopup("login-error");
+            return;
+        }
         try {
             LoginService.loginUser(usernameTextField.getText(), passwordPasswordField.getText(), UserRole.valueOf(roleChoiceBox.getValue()));
         }  catch (UserNotFoundException e) {

@@ -35,17 +35,28 @@ public class RegisterController {
     }
 
     public void register(ActionEvent event) throws IOException {
+        if(roleChoiceBox.getValue() == null){
+            PopupWindow.openPopup("register-error");
+            return;
+        }
+
         try {
-            String managerUsername = managerUsernameTextField.getText();
-            UsersDB.checkIsManager(managerUsername);
+            UserRole userRole = UserRole.valueOf(roleChoiceBox.getValue());
+
+            String managerUsername = null;
+            if (userRole == UserRole.Employee) {
+                managerUsername = managerUsernameTextField.getText();
+                UsersDB.checkIsManager(managerUsername);
+            }
 
             RegisterService.registerUser(usernameTextField.getText(), passwordPasswordField.getText(),
-                    UserRole.valueOf(roleChoiceBox.getValue()), managerUsername,
+                    userRole, managerUsername,
                     fullNameTextField.getText(), addressTextField.getText(), phoneNoTextField.getText());
+
+            Main.changeScene("login-page");
         } catch (UsernameAlreadyExistsException | UserNotFoundException | NotManagerException e) {
             PopupWindow.openPopup("register-error");
         }
-        Main.changeScene("login-page");
     }
 
     public void exitApplication() {

@@ -10,7 +10,7 @@ public final class ManagerCallRequestService {
     }
 
     // Employee responds to the request
-    public static void respondToRequest(boolean canArriveToday, String arrivalTime) throws ManagerCannotHaveRequestsException, UserNotLoggedInException, NoManagerCallRequestsException {
+    public static void respondToRequest(boolean canArriveToday, String arrivalTime) throws NotLoggedInAsEmployeeException, UserNotLoggedInException, NoManagerCallRequestsException {
         ManagerCallRequestsDB.respondToRequest(canArriveToday, arrivalTime);
     }
 
