@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?><?import javafx.scene.control.Label?><?import javafx.scene.image.Image?><?import javafx.scene.image.ImageView?><?import javafx.scene.layout.AnchorPane?><?import javafx.scene.layout.Pane?><?import javafx.scene.text.Font?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="375.0"
+    prefWidth="599.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.work.teammanagement.controllers.EmployeeMenuController">
+    <children>
+        <AnchorPane layoutY="-1.0" prefHeight="400.0" prefWidth="600.0">
+            <children>
+                <ImageView fitHeight="400.0" fitWidth="600.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@img/Login.jpeg" />
+                    </image>
+                </ImageView>
+                <Label layoutX="208.0" layoutY="38.0" text="EMPLOYEE MENU" textAlignment="CENTER" textFill="WHITE">
+                    <font>
+                        <Font size="24.0" />
+                    </font>
+                </Label>
+                <Button fx:id="requestStatusButton" layoutX="74.0" layoutY="235.0" mnemonicParsing="false"
+                    onAction="#goToRequestStatusPage" prefHeight="47.0" prefWidth="144.0" text="REQUESTS STATUS">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Button>
+                <Button fx:id="makeRequestButton" layoutX="74.0" layoutY="118.0" mnemonicParsing="false"
+                    onAction="#goToMakeRequestPage" prefHeight="47.0" prefWidth="144.0" text="MAKE REQUEST">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Button>
+                <Button fx:id="arrivalTimeButton" layoutX="392.0" layoutY="118.0" mnemonicParsing="false"
+                    onAction="#goToArrivalTimePage" prefHeight="47.0" prefWidth="144.0" text="ARRIVAL TIME">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Button>
+                <Button fx:id="logoutButton" layoutX="392.0" layoutY="235.0" mnemonicParsing="false"
+                    onAction="#goToLogoutPage" prefHeight="47.0" prefWidth="144.0" text="LOGOUT">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Button>
+            </children>
+        </AnchorPane>
+    </children>
+</Pane>
