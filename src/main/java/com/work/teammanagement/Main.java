@@ -11,17 +11,23 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class Main extends Application {
+    private static Stage primaryStage;
     private static Scene scene;
+
+    public static Stage getPrimaryStage() {
+        return primaryStage;
+    }
 
     @Override
     public void start(Stage primaryStage) throws IOException {
+        Main.primaryStage = primaryStage;
+
         UsersDB.loadUsersDB();
 
         primaryStage.setResizable(false);
         primaryStage.setTitle("Team Management");
 
-//        Parent root = FXMLLoader.load(getClass().getResource("login-view"));
-        Parent root = FXMLLoader.load(PageSelector.selectPage("test-page"));
+        Parent root = FXMLLoader.load(PageSelector.selectPage("login-page"));
         scene = new Scene(root, 800, 600);
         primaryStage.setScene(scene);
         primaryStage.show();
