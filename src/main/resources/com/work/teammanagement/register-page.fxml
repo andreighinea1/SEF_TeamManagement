@@ -10,10 +10,9 @@
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="421.0" prefWidth="625.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <ParallelCamera />
-      <AmbientLight color="CHARTREUSE" lightOn="true" />
       <AnchorPane layoutY="-5.0" prefHeight="387.0" prefWidth="581.0">
          <children>
+            <ParallelCamera />
             <ImageView fitHeight="450.0" fitWidth="625.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@img/Login.jpeg" />
@@ -79,6 +78,7 @@
                   <Font size="18.0" />
                </font>
             </Button>
+            <AmbientLight color="CHARTREUSE" lightOn="true" />
          </children>
       </AnchorPane>
    </children>
