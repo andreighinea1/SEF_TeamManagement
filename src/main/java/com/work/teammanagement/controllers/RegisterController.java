@@ -1,54 +1,52 @@
 package com.work.teammanagement.controllers;
 
 import com.work.teammanagement.Main;
+import com.work.teammanagement.PopupWindow;
+import com.work.teammanagement.exceptions.UsernameAlreadyExistsException;
+import com.work.teammanagement.model.users.UserRole;
+import com.work.teammanagement.services.RegisterService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
 
+import javax.swing.text.html.ImageView;
+
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class RegisterController {
     @FXML
-    private Button goToLoginPageButton;
+    private Button goToLoginPageButton, registerButton, exitButton;
     @FXML
-    private Button registerButton;
-    @FXML
-    private Button exitButton;
-    @FXML
-    private ChoiceBox <String> roleChoiceBox;
-    @FXML
-    private TextField usernameTextField;
-    @FXML
-    private TextField fullNameTextField;
-    @FXML
-    private TextField addressTextField;
-    @FXML
-    private TextField phoneNoTextField;
+    private TextField usernameTextField, fullNameTextField, addressTextField, phoneNoTextField, managerUsernameTextField;
     @FXML
     private PasswordField passwordPasswordField;
+    @FXML
+    private ChoiceBox<String> roleChoiceBox;
+    private String[] roles = {"Employee", "Manager"};
 
-    private String[] roles = {"Manager", "Employee"};
-
-    public RegisterController()
-    {
-    }
-
-    public void initialize(URL arg0, ResourceBundle arg1)
-    {
-        roleChoiceBox.getItems().addAll(roles);
-    }
-
-    public void goToLoginPage(ActionEvent actionEvent) {
+    public void goToLoginPage(ActionEvent event) throws IOException {
         Main.changeScene("login-page");
     }
 
-    public void register(ActionEvent actionEvent)
-    {
-        Main.changeScene("main");
+    public void register() throws IOException {
+        try {
+            RegisterService.registerUser(usernameTextField.getText(), passwordPasswordField.getText(),
+                    UserRole.valueOf(roleChoiceBox.getValue()), managerUsernameTextField.getText(),
+                    fullNameTextField.getText(), addressTextField.getText(), phoneNoTextField.getText());
+        } catch (UsernameAlreadyExistsException e) {
+            PopupWindow.openPopup("register-error");
+        }
+    }
+
+    public void exitApplication() {
+        javafx.application.Platform.exit();
+    }
+
+    public void initialize() {
+        roleChoiceBox.getItems().addAll(roles);
     }
 
 
