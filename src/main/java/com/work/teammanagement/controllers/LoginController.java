@@ -8,42 +8,35 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
-import java.net.URL;
-import java.util.ResourceBundle;
+import java.io.IOException;
 
 public class LoginController {
-    @FXML
-    private Button exitButton;
     @FXML
     private Button goToRegisterPageButton;
     @FXML
     private Button loginButton;
     @FXML
-    private ChoiceBox <String> roleChoiceBox;
+    private Button exitButton;
+    @FXML
+    private PasswordField passwordPasswordField;
     @FXML
     private TextField usernameTextField;
     @FXML
-    private PasswordField passwordPasswordField;
+    private ChoiceBox<String> roleChoiceBox;
+    private String[] roles = {"employee", "manager"};
 
-    private String[] roles = {"Manager", "Employee"};
-
-    public LoginController() {
-    }
-
-    public void initialize(URL arg0, ResourceBundle arg1)
-    {
-        roleChoiceBox.getItems().addAll(roles);
-    }
-
-    public void exitApplication() {
-        javafx.application.Platform.exit();
+    public void login(ActionEvent actionEvent) {
     }
 
     public void goToRegisterPage(ActionEvent actionEvent) {
         Main.changeScene("register-page");
     }
 
-    public void login(ActionEvent actionEvent) {
-        Main.changeScene("main");
+    public void exitApplication(ActionEvent actionEvent) {
+        javafx.application.Platform.exit();
+    }
+
+    public void initialize() {
+        roleChoiceBox.getItems().addAll(roles);
     }
 }
