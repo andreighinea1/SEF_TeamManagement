@@ -8,6 +8,9 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 public class LoginController {
     @FXML
     private Button exitButton;
@@ -22,12 +25,14 @@ public class LoginController {
     @FXML
     private PasswordField passwordPasswordField;
 
+    private String[] roles = {"Manager", "Employee"};
+
     public LoginController() {
     }
 
-    public void initialize()
+    public void initialize(URL arg0, ResourceBundle arg1)
     {
-
+        roleChoiceBox.getItems().addAll(roles);
     }
 
     public void exitApplication() {
@@ -39,5 +44,6 @@ public class LoginController {
     }
 
     public void login(ActionEvent actionEvent) {
+        Main.changeScene("main");
     }
 }
