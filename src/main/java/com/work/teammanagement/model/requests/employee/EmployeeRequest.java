@@ -11,6 +11,7 @@ import com.work.teammanagement.model.requests.employee.serializing.ApprovalStatu
 
 public class EmployeeRequest {
     private String requestTitle;
+    private String requestText;
     private String managerUserName;
 
     @JsonSerialize(converter = ApprovalStatusToStrConverter.class)
@@ -22,10 +23,11 @@ public class EmployeeRequest {
     public EmployeeRequest() {
     }
 
-    public EmployeeRequest(String requestTitle, String managerUserName) throws UserNotFoundException, NotManagerException {
+    public EmployeeRequest(String requestTitle, String requestText, String managerUserName) throws UserNotFoundException, NotManagerException {
         UsersDB.checkIsManager(managerUserName);
 
         this.requestTitle = requestTitle;
+        this.requestText = requestText;
         this.managerUserName = managerUserName;
         this.approvalStatus = ApprovalStatus.Pending;
     }
@@ -33,6 +35,10 @@ public class EmployeeRequest {
 
     public String getRequestTitle() {
         return requestTitle;
+    }
+
+    public String getRequestText() {
+        return requestText;
     }
 
     public String getManagerUserName() {

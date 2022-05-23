@@ -20,8 +20,8 @@ public final class EmployeeRequestsDB {
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private static boolean loaded = false;
 
-    public static void addRequest(String requestTitle, String managerUserName) throws UserNotFoundException, UserNotLoggedInException, ManagerCannotHaveRequestsException, NotManagerException {
-        getUserRequestsForLoggedInUser().add(new EmployeeRequest(requestTitle, managerUserName));
+    public static void addRequest(String requestTitle, String requestText, String managerUserName) throws UserNotFoundException, UserNotLoggedInException, ManagerCannotHaveRequestsException, NotManagerException {
+        getUserRequestsForLoggedInUser().add(new EmployeeRequest(requestTitle, requestText, managerUserName));
         saveRequestsDB(); // TODO: Not perfect as it saves the whole DB, but it is what it is
     }
 
