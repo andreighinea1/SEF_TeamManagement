@@ -91,18 +91,18 @@ public class TestDB {
             EmployeeRequestsDB.unloadRequestsDB();
 
             LoginService.loginUser("employee1", "password5", UserRole.Employee);
-            EmployeeRequestsDB.addRequest("request2", "manager1");
-            EmployeeRequestsDB.addRequest("request3", "manager1");
+            EmployeeRequestsDB.addRequest("request2", "Some message", "manager1");
+            EmployeeRequestsDB.addRequest("request3", "Some message 2", "manager1");
 
             LoginService.loginUser("employee2", "password5", UserRole.Employee);
-            EmployeeRequestsDB.addRequest("request_employee2_1", "manager2");
+            EmployeeRequestsDB.addRequest("request_employee2_1", "Some other message", "manager2");
 
             EmployeeRequestsDB.print();
 
 
             // FAIL
-            LoginService.loginUser("employee3", "ceva", UserRole.Employee); // here is exp
-            EmployeeRequestsDB.addRequest("request3", "manager1");
+            LoginService.loginUser("employee3", "ceva", UserRole.Employee);
+            EmployeeRequestsDB.addRequest("request3", "FAIL", "manager1");
         } catch (UserNotFoundException e) {
             System.out.println(e.getMessage());
             assert e.getMessage().equals("{username: employee3} not found!");
@@ -112,7 +112,7 @@ public class TestDB {
         try {
             // FAIL
             LoginService.loginUser("manager1", "password1", UserRole.Manager);
-            EmployeeRequestsDB.addRequest("request1", "manager1");
+            EmployeeRequestsDB.addRequest("request1", "FAIL", "manager1");
         } catch (ManagerCannotHaveRequestsException e) {
             System.out.println(e.getMessage());
             assert e.getMessage().equals("User manager1 cannot have requests!");
