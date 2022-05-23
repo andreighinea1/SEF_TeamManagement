@@ -13,7 +13,7 @@ public class RequestListController {
     @FXML
     private Button backButton;
 
-    public void goToManagerMenuPage(ActionEvent event) throws IOException {
-        Main.changeScene("menu-manager.fxml");
+    public void goBack(ActionEvent event) throws IOException {
+        Main.changeScene("menu");
     }
 }

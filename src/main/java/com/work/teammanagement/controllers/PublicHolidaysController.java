@@ -13,6 +13,6 @@ public class PublicHolidaysController {
     private Button backButton;
 
     public void goToMakeRequest(ActionEvent event) throws IOException {
-        Main.changeScene("request-list.fxml");
+        Main.changeScene("list-of-requests-page");
     }
 }

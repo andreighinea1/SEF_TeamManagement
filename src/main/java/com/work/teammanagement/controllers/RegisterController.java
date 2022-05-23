@@ -2,7 +2,10 @@ package com.work.teammanagement.controllers;
 
 import com.work.teammanagement.Main;
 import com.work.teammanagement.PopupWindow;
+import com.work.teammanagement.exceptions.NotManagerException;
+import com.work.teammanagement.exceptions.UserNotFoundException;
 import com.work.teammanagement.exceptions.UsernameAlreadyExistsException;
+import com.work.teammanagement.model.databases.UsersDB;
 import com.work.teammanagement.model.users.UserRole;
 import com.work.teammanagement.services.RegisterService;
 import javafx.event.ActionEvent;
@@ -31,14 +34,18 @@ public class RegisterController {
         Main.changeScene("login-page");
     }
 
-    public void register() throws IOException {
+    public void register(ActionEvent event) throws IOException {
         try {
+            String managerUsername = managerUsernameTextField.getText();
+            UsersDB.checkIsManager(managerUsername);
+
             RegisterService.registerUser(usernameTextField.getText(), passwordPasswordField.getText(),
-                    UserRole.valueOf(roleChoiceBox.getValue()), managerUsernameTextField.getText(),
+                    UserRole.valueOf(roleChoiceBox.getValue()), managerUsername,
                     fullNameTextField.getText(), addressTextField.getText(), phoneNoTextField.getText());
-        } catch (UsernameAlreadyExistsException e) {
+        } catch (UsernameAlreadyExistsException | UserNotFoundException | NotManagerException e) {
             PopupWindow.openPopup("register-error");
         }
+        Main.changeScene("login-page");
     }
 
     public void exitApplication() {

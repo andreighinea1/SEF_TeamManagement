@@ -21,7 +21,7 @@
             <Font size="24.0" />
          </font>
       </Label>
-      <Button fx:id="backButton" layoutX="444.0" layoutY="327.0" mnemonicParsing="false" onAction="#goToManagerMenuPage" prefHeight="47.0" prefWidth="131.0" text="BACK">
+      <Button fx:id="backButton" layoutX="444.0" layoutY="327.0" mnemonicParsing="false" onAction="#goBack" prefHeight="47.0" prefWidth="131.0" text="BACK">
          <font>
             <Font size="18.0" />
          </font>
