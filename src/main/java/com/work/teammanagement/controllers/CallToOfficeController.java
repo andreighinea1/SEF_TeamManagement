@@ -4,6 +4,7 @@ import com.work.teammanagement.Main;
 import com.work.teammanagement.PopupWindow;
 import com.work.teammanagement.exceptions.*;
 import com.work.teammanagement.model.databases.ManagerCallRequestsDB;
+import com.work.teammanagement.services.ManagerCallRequestService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -44,7 +45,7 @@ public class CallToOfficeController {
     public void ok(ActionEvent event) throws IOException, UserNotLoggedInException, NotEmployeeException, NotEnoughPrivilegesException, NotManagerException {
         if(correctCheckBox.isSelected()) {
             try {
-                ManagerCallRequestsDB.addRequest("Call to office", usernameTextField.getText());
+                ManagerCallRequestService.addRequest("Call to office", usernameTextField.getText());
                 Main.changeScene("menu");
             } catch (UserNotFoundException ignored){
                 PopupWindow.openPopup("register-error");
