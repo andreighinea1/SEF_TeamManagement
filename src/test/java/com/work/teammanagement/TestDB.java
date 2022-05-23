@@ -129,28 +129,36 @@ public class TestDB {
             EmployeeRequestsDB.loadRequestsDB();
 
             LoginService.loginUser("manager1", "password1", UserRole.Manager);
-            System.out.println(EmployeeRequestsDB.getUserRequestsForManager("employee1"));
+            System.out.println(EmployeeRequestsDB.getUserRequests("employee1"));
 
             LoginService.loginUser("manager2", "123", UserRole.Manager);
-            System.out.println(EmployeeRequestsDB.getUserRequestsForManager("employee2"));
+            System.out.println(EmployeeRequestsDB.getUserRequests("employee2"));
 
 
             // FAIL
-            System.out.println(EmployeeRequestsDB.getUserRequestsForManager("employee1"));
+            System.out.println(EmployeeRequestsDB.getUserRequests("employee1"));
         } catch (UserNotFoundException | NotEnoughPrivilegesException | UserNotLoggedInException |
                  NoEmployeeRequestsException e) {
             throw new RuntimeException(e);
         } catch (ManagerMismatchException e) {
             System.out.println(e.getMessage());
+        } catch (ManagerCannotHaveRequestsException e) {
+            throw new RuntimeException(e);
+        } catch (NotEmployeeException e) {
+            throw new RuntimeException(e);
         }
         try {
             // FAIL
             LoginService.loginUser("manager1", "password1", UserRole.Manager);
-            System.out.println(EmployeeRequestsDB.getUserRequestsForManager("employee3"));
+            System.out.println(EmployeeRequestsDB.getUserRequests("employee3"));
         } catch (UserNotFoundException e) {
             System.out.println(e.getMessage());
         } catch (UserNotLoggedInException | ManagerMismatchException | NotEnoughPrivilegesException |
                  NoEmployeeRequestsException e) {
+            throw new RuntimeException(e);
+        } catch (ManagerCannotHaveRequestsException e) {
+            throw new RuntimeException(e);
+        } catch (NotEmployeeException e) {
             throw new RuntimeException(e);
         }
     }

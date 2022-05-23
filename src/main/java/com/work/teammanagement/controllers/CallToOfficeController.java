@@ -46,10 +46,10 @@ public class CallToOfficeController {
         if(correctCheckBox.isSelected()) {
             try {
                 ManagerCallRequestService.addRequest("Call to office", usernameTextField.getText());
-                Main.changeScene("menu");
             } catch (UserNotFoundException ignored){
                 PopupWindow.openPopup("register-error");
             }
+            Main.changeScene("menu");
         }
     }
 }
