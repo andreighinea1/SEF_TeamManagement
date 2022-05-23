@@ -42,7 +42,19 @@ public final class UsersDB {
         return employeeList;
     }
 
-    public static int getAvailableHolidayDays() throws ManagerCannotHaveRequestsException, UserNotLoggedInException {
+    public static ArrayList<String> getEmployeeListForStatusList() throws UserNotLoggedInException, NotLoggedInAsEmployeeException {
+        LoggedInUser.checkLoggedInAsEmployee();
+
+        ArrayList<String> employeeList = new ArrayList<>();
+        for(User user : users){
+            if(user.isEmployee())
+                employeeList.add(user.toStringForList());
+        }
+
+        return employeeList;
+    }
+
+    public static int getAvailableHolidayDays() throws NotLoggedInAsEmployeeException, UserNotLoggedInException {
         return LoggedInUser.getEmployeeAvailableHolidayDays();
     }
 

@@ -47,7 +47,7 @@ public class CallToOfficeController {
             try {
                 ManagerCallRequestService.addRequest("Call to office", usernameTextField.getText());
             } catch (UserNotFoundException ignored){
-                PopupWindow.openPopup("register-error");
+                PopupWindow.openPopup("user-not-found-error");
             }
             Main.changeScene("menu");
         }

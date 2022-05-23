@@ -2,28 +2,21 @@ package com.work.teammanagement.controllers;
 
 import com.work.teammanagement.Main;
 import com.work.teammanagement.PopupWindow;
-import com.work.teammanagement.exceptions.ManagerCannotHaveRequestsException;
+import com.work.teammanagement.exceptions.NotLoggedInAsEmployeeException;
 import com.work.teammanagement.exceptions.NotManagerException;
 import com.work.teammanagement.exceptions.UserNotFoundException;
 import com.work.teammanagement.exceptions.UserNotLoggedInException;
-import com.work.teammanagement.model.databases.EmployeeRequestsDB;
 import com.work.teammanagement.model.databases.UsersDB;
 import com.work.teammanagement.services.EmployeeRequestService;
 import com.work.teammanagement.services.LoggedInUser;
-import com.work.teammanagement.services.ManagerCallRequestService;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.io.IOException;
-import java.net.URL;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
-import java.util.ResourceBundle;
 
 public class MakeRequestController {
-    @FXML
-    private TextField managerUsernameTextField;
     @FXML
     private DatePicker startDatePicker, endDatePicker;
     @FXML
@@ -44,13 +37,9 @@ public class MakeRequestController {
         Main.changeScene("menu");
     }
 
-    public void send() throws UserNotFoundException, IOException, ManagerCannotHaveRequestsException, UserNotLoggedInException, NotManagerException {
-        String managerUsername = managerUsernameTextField.getText();
-        try {
-            UsersDB.checkIsManager(managerUsername);
-        } catch (NotManagerException e) {
-            PopupWindow.openPopup("register-error");
-        }
+    public void send() throws UserNotFoundException, IOException, NotLoggedInAsEmployeeException, UserNotLoggedInException, NotManagerException {
+        String managerUsername = UsersDB.findAssignedManager(LoggedInUser.getEmployeeUsername());
+
         if (typeRequestChoiceBox.getValue().equals("Plan Holiday")) {
             if (convertDate(startDatePicker).equals(""))
                 EmployeeRequestService.planHoliday(convertDate(startDatePicker), convertDate(startDatePicker), reasonTextField.getText(), managerUsername);
@@ -69,13 +58,13 @@ public class MakeRequestController {
         } else if (typeRequestChoiceBox.getValue().equals("Short Time Absence")) {
             EmployeeRequestService.requestShortTimeAbsence(convertDate(startDatePicker), reasonTextField.getText(), managerUsername);
         } else {
-            PopupWindow.openPopup("register-error");
+            PopupWindow.openPopup("no-option-selected-error");
             return;
         }
         Main.changeScene("menu");
     }
 
-    public void initialize() throws ManagerCannotHaveRequestsException, UserNotLoggedInException {
+    public void initialize() throws NotLoggedInAsEmployeeException, UserNotLoggedInException {
         availableVacationDaysLabel.setText("Available Vacations Days: " + LoggedInUser.getEmployeeAvailableHolidayDays());
         typeRequestChoiceBox.getItems().addAll(requests);
     }

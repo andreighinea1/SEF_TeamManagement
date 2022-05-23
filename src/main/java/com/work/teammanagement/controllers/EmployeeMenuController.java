@@ -22,7 +22,7 @@ public class EmployeeMenuController {
     private Button requestStatusButton;
 
     public void goToRequestStatusPage(ActionEvent event) throws IOException {
-        Main.changeScene("list-of-requests-page");
+        Main.changeScene("requests-status-list-page");
     }
 
     public void goToMakeRequestPage(ActionEvent event) throws IOException {

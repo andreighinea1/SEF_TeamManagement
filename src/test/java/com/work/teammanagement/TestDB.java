@@ -106,14 +106,14 @@ public class TestDB {
         } catch (UserNotFoundException e) {
             System.out.println(e.getMessage());
             assert e.getMessage().equals("{username: employee3} not found!");
-        } catch (UserNotLoggedInException | ManagerCannotHaveRequestsException | NotManagerException e) {
+        } catch (UserNotLoggedInException | NotLoggedInAsEmployeeException | NotManagerException e) {
             throw new RuntimeException(e);
         }
         try {
             // FAIL
             LoginService.loginUser("manager1", "password1", UserRole.Manager);
             EmployeeRequestsDB.addRequest("request1", "FAIL", "manager1");
-        } catch (ManagerCannotHaveRequestsException e) {
+        } catch (NotLoggedInAsEmployeeException e) {
             System.out.println(e.getMessage());
             assert e.getMessage().equals("User manager1 cannot have requests!");
         } catch (UserNotFoundException | UserNotLoggedInException | NotManagerException e) {
@@ -142,7 +142,7 @@ public class TestDB {
             throw new RuntimeException(e);
         } catch (ManagerMismatchException e) {
             System.out.println(e.getMessage());
-        } catch (ManagerCannotHaveRequestsException e) {
+        } catch (NotLoggedInAsEmployeeException e) {
             throw new RuntimeException(e);
         } catch (NotEmployeeException e) {
             throw new RuntimeException(e);
@@ -156,7 +156,7 @@ public class TestDB {
         } catch (UserNotLoggedInException | ManagerMismatchException | NotEnoughPrivilegesException |
                  NoEmployeeRequestsException e) {
             throw new RuntimeException(e);
-        } catch (ManagerCannotHaveRequestsException e) {
+        } catch (NotLoggedInAsEmployeeException e) {
             throw new RuntimeException(e);
         } catch (NotEmployeeException e) {
             throw new RuntimeException(e);
@@ -197,7 +197,7 @@ public class TestDB {
 
             // FAIL
             ManagerCallRequestsDB.respondToRequest(true, "in a few hours");
-        } catch (ManagerCannotHaveRequestsException | UserNotLoggedInException |
+        } catch (NotLoggedInAsEmployeeException | UserNotLoggedInException |
                  UserNotFoundException e) {
             throw new RuntimeException(e);
         } catch (NoManagerCallRequestsException e) {

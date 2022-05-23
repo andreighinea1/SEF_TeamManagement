@@ -21,13 +21,13 @@ public final class EmployeeRequestsDB {
     private static final ObjectMapper objectMapper = new ObjectMapper();
     private static boolean loaded = false;
 
-    public static void addRequest(String requestTitle, String requestText, String managerUserName) throws UserNotFoundException, UserNotLoggedInException, ManagerCannotHaveRequestsException, NotManagerException {
+    public static void addRequest(String requestTitle, String requestText, String managerUserName) throws UserNotFoundException, UserNotLoggedInException, NotLoggedInAsEmployeeException, NotManagerException {
         getUserRequestsForLoggedInUser().add(new EmployeeRequest(requestTitle, requestText, managerUserName));
         saveRequestsDB(); // TODO: Not perfect as it saves the whole DB, but it is what it is
     }
 
     @NotNull
-    private static ArrayList<EmployeeRequest> getUserRequestsForLoggedInUser() throws ManagerCannotHaveRequestsException, UserNotLoggedInException {
+    private static ArrayList<EmployeeRequest> getUserRequestsForLoggedInUser() throws NotLoggedInAsEmployeeException, UserNotLoggedInException {
         String loggedInUsername = LoggedInUser.getEmployeeUsername();
         employeeUsernameToRequests.putIfAbsent(loggedInUsername, new ArrayList<>()); // IfAbsent because we are adding
         ArrayList<EmployeeRequest> requests = employeeUsernameToRequests.get(loggedInUsername);
@@ -36,19 +36,19 @@ public final class EmployeeRequestsDB {
         return requests;
     }
 
-    @NotNull
-    public static ArrayList<EmployeeRequest> getUserRequests() throws UserNotFoundException, UserNotLoggedInException, ManagerMismatchException, NoEmployeeRequestsException, ManagerCannotHaveRequestsException, NotEnoughPrivilegesException {
-        String employeeUsername = LoggedInUser.getEmployeeUsername();
-//        LoggedInUser.checkAssignedManager(employeeUsername);
+//    @NotNull
+//    public static ArrayList<EmployeeRequest> getUserRequests() throws UserNotFoundException, UserNotLoggedInException, ManagerMismatchException, NoEmployeeRequestsException, NotLoggedInAsEmployeeException, NotEnoughPrivilegesException {
+//        String employeeUsername = LoggedInUser.getEmployeeUsername();
+////        LoggedInUser.checkAssignedManager(employeeUsername);
+//
+//        ArrayList<EmployeeRequest> employeeRequests = employeeUsernameToRequests.get(employeeUsername);
+//        if (employeeRequests == null)
+//            throw new NoEmployeeRequestsException(employeeUsername);
+//        return employeeRequests;
+//    }
 
-        ArrayList<EmployeeRequest> employeeRequests = employeeUsernameToRequests.get(employeeUsername);
-        if (employeeRequests == null)
-            throw new NoEmployeeRequestsException(employeeUsername);
-        return employeeRequests;
-    }
-
     @NotNull
-    public static ArrayList<EmployeeRequest> getUserRequests(String employeeUsername) throws UserNotFoundException, UserNotLoggedInException, ManagerMismatchException, NoEmployeeRequestsException, ManagerCannotHaveRequestsException, NotEnoughPrivilegesException, NotEmployeeException {
+    public static ArrayList<EmployeeRequest> getUserRequests(String employeeUsername) throws UserNotFoundException, UserNotLoggedInException, ManagerMismatchException, NoEmployeeRequestsException, NotLoggedInAsEmployeeException, NotEnoughPrivilegesException, NotEmployeeException {
         UsersDB.checkIsEmployee(employeeUsername);
         LoggedInUser.checkAssignedManager(employeeUsername);
 
@@ -61,6 +61,7 @@ public final class EmployeeRequestsDB {
     @NotNull
     public static ArrayList<EmployeeRequest> getAllUserRequestsForManager() throws UserNotFoundException, NotEnoughPrivilegesException, UserNotLoggedInException, ManagerMismatchException, NoEmployeeRequestsException {
         LoggedInUser.checkLoggedInAsManager();
+        System.out.println(employeeUsernameToRequests);
 
         ArrayList<EmployeeRequest> employeeRequests = new ArrayList<>();
         for (Map.Entry<String, ArrayList<EmployeeRequest>> entry : employeeUsernameToRequests.entrySet()) {
