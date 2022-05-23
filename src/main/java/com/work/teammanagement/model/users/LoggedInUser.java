@@ -71,6 +71,11 @@ public final class LoggedInUser {
         return user.getUsername();
     }
 
+    public static int getEmployeeAvailableHolidayDays() throws UserNotLoggedInException, ManagerCannotHaveRequestsException {
+        checkLoggedInAsEmployee();
+        return user.getAvailableHolidayDays();
+    }
+
     public static String getPasswordHash() throws UserNotLoggedInException {
         checkLoggedIn();
         return user.getPasswordHash();

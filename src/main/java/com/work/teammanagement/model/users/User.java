@@ -3,6 +3,7 @@ package com.work.teammanagement.model.users;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.work.teammanagement.exceptions.NotEnoughAvailableDaysException;
 import com.work.teammanagement.model.users.serializing.UserRoleFromStrConverter;
 import com.work.teammanagement.model.users.serializing.UserRoleToStrConverter;
 
@@ -18,6 +19,7 @@ public class User {
     private String address;
     private String phone;
     private String managerUsername;
+    private int availableHolidayDays;
 
 
     // This empty constructor is needed for JSON (just like the unused getters)
@@ -36,6 +38,7 @@ public class User {
         this.fullName = fullName;
         this.address = address;
         this.phone = phone;
+        this.availableHolidayDays = 21;
     }
 
 
@@ -67,8 +70,18 @@ public class User {
         return managerUsername;
     }
 
+    public int getAvailableHolidayDays() {
+        return availableHolidayDays;
+    }
+
     public void setManagerUsername(String managerUsername) {
         this.managerUsername = managerUsername;
+    }
+
+    public void decreaseAvailableHolidayDays(int amount) throws NotEnoughAvailableDaysException {
+        if (amount > availableHolidayDays)
+            throw new NotEnoughAvailableDaysException();
+        availableHolidayDays -= amount; // TODO: Update GUI with this
     }
 
 

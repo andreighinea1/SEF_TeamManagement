@@ -47,7 +47,6 @@ public final class EmployeeRequestsDB {
         return employeeRequests;
     }
 
-
     public static void loadRequestsDB() {
         try {
             HashMap<String, ArrayList<EmployeeRequest>> temp = objectMapper.readValue(Paths.get(dbName).toFile(), new TypeReference<>() {
