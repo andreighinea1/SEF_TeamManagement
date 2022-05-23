@@ -29,13 +29,13 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField layoutX="394.0" layoutY="278.0" />
+            <TextField fx:id="phoneNoTextField" layoutX="394.0" layoutY="278.0" />
             <Label layoutX="290.0" layoutY="182.0" text="PASSWORD" textFill="WHITE">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <PasswordField layoutX="394.0" layoutY="147.0" />
+            <PasswordField fx:id="passwordPasswordField" layoutX="394.0" layoutY="180.0" />
             <Label layoutX="291.0" layoutY="215.0" text="FULL NAME" textFill="WHITE">
                <font>
                   <Font size="18.0" />
@@ -51,10 +51,10 @@
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField layoutX="394.0" layoutY="180.0" />
-            <TextField layoutX="394.0" layoutY="213.0" />
-            <TextField layoutX="394.0" layoutY="246.0" />
-            <Button layoutX="39.0" layoutY="353.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="196.0" text="GO TO LOGIN PAGE ">
+            <TextField fx:id="usernameTextField" layoutX="394.0" layoutY="147.0" />
+            <TextField fx:id="fullNameTextField" layoutX="394.0" layoutY="213.0" />
+            <TextField fx:id="addressTextField" layoutX="394.0" layoutY="246.0" />
+            <Button fx:id="goToLoginPageButton" layoutX="39.0" layoutY="353.0" mnemonicParsing="false" onAction="#goToLoginPage" prefHeight="45.0" prefWidth="196.0" text="GO TO LOGIN PAGE ">
                <font>
                   <Font size="15.0" />
                </font>
@@ -64,13 +64,21 @@
                   <Font size="19.0" />
                </font>
             </Label>
-            <Button layoutX="419.0" layoutY="353.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="116.0" text="EXIT" />
-            <ChoiceBox layoutX="40.0" layoutY="214.0" prefHeight="27.0" prefWidth="179.0" />
+            <Button fx:id="exitButton" layoutX="419.0" layoutY="353.0" mnemonicParsing="false" onAction="#exitApplication" prefHeight="45.0" prefWidth="116.0" text="EXIT">
+               <font>
+                  <Font size="18.0" />
+               </font></Button>
+            <ChoiceBox fx:id="roleChoiceBox" layoutX="40.0" layoutY="214.0" prefHeight="27.0" prefWidth="179.0" />
             <Label layoutX="36.0" layoutY="180.0" text="Choose wanted  role" textFill="WHITE">
                <font>
                   <Font size="21.0" />
                </font>
             </Label>
+            <Button fx:id="registerButton" layoutX="264.0" layoutY="353.0" mnemonicParsing="false" onAction="#register" prefHeight="45.0" prefWidth="116.0" text="REGISTER">
+               <font>
+                  <Font size="18.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
    </children>
