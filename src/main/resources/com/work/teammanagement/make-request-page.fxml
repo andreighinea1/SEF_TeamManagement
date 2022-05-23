@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="379.0" prefWidth="581.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.work.teammanagement.controllers.MakeRequestController">
+    <children>
+        <ImageView fitHeight="464.0" fitWidth="600.0" layoutY="-1.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@img/Login.jpeg" />
+            </image>
+        </ImageView>
+        <DatePicker fx:id="startDatePicker" layoutX="19.0" layoutY="128.0" />
+        <Label layoutX="214.0" layoutY="39.0" text="MAKE REQUEST" textAlignment="CENTER" textFill="WHITE">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Label>
+        <Label layoutX="20.0" layoutY="105.0" text="Start  Date For Request" textFill="WHITE">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <ChoiceBox fx:id="typeRequestChoiceBox" layoutX="394.0" layoutY="190.0" prefHeight="27.0" prefWidth="185.0" />
+        <Label layoutX="394.0" layoutY="167.0" prefHeight="23.0" prefWidth="185.0" text="Select Type Of Request" textFill="WHITE">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <Button fx:id="cancelButton" layoutX="397.0" layoutY="297.0" mnemonicParsing="false" onAction="#cancel" prefHeight="49.0" prefWidth="178.0" text="CANCEL">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+        <Button fx:id="sendButton" layoutX="28.0" layoutY="297.0" mnemonicParsing="false" onAction="#send" prefHeight="49.0" prefWidth="178.0" text="SEND">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+        <TextField fx:id="reasonTextField" layoutX="19.0" layoutY="251.0" prefHeight="27.0" prefWidth="254.0" />
+        <Label layoutX="19.0" layoutY="226.0" text="Introduce The Reason Of Request" textFill="WHITE">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <Button fx:id="publicHolidaysButton" layoutX="397.0" layoutY="226.0" mnemonicParsing="false" onAction="#goToPublicHolidaysPage" prefHeight="49.0" prefWidth="178.0" text="PUBLIC HOLIDAYS">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Button>
+        <Label fx:id="availableVacationDaysLabel" layoutX="318.0" layoutY="105.0" text="Available Vacations Days" textFill="#fcfcfc">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+        <DatePicker fx:id="endDatePicker" layoutX="19.0" layoutY="190.0" />
+        <Label layoutX="20.0" layoutY="167.0" prefHeight="23.0" prefWidth="174.0" text="End Date For Request" textFill="WHITE">
+            <font>
+                <Font size="18.0" />
+            </font>
+        </Label>
+      <TextField fx:id="managerUsernameTextField" layoutX="214.0" layoutY="178.0" prefHeight="27.0" prefWidth="156.0" />
+      <Label layoutX="214.0" layoutY="153.0" text="Manager Username" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+    </children>
+</AnchorPane>

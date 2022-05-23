@@ -15,8 +15,8 @@ import javafx.stage.*;
 import java.io.IOException;
 
 public class PopupWindow {
-    private static final double popupWidth = 800;
-    private static final double popupHeight = 600;
+    private static final double popupWidth = 400;
+    private static final double popupHeight = 300;
 
     public static void openPopup(String popupPageName) throws IOException {
         final Stage dialog = new Stage();

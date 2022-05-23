@@ -26,7 +26,7 @@
                         <Font size="16.0" />
                     </font>
                 </Label>
-                <TextField fx:id="myUsernameTextField" prefHeight="10.0" prefWidth="229.0" />
+                <TextField fx:id="usernameTextField" prefHeight="10.0" prefWidth="229.0" />
             </children>
         </VBox>
         <HBox maxHeight="-Infinity" maxWidth="+Infinity" minHeight="-Infinity" minWidth="-Infinity"
@@ -51,7 +51,7 @@
                 </Button>
                 <HBox fx:id="okParent" alignment="CENTER">
                     <children>
-                        <Button fx:id="okButton" minWidth="80.0" mnemonicParsing="false" onAction="#okkkkMethod"
+                        <Button fx:id="okButton" minWidth="80.0" mnemonicParsing="false" onAction="#ok"
                             text="Ok" HBox.hgrow="NEVER">
                             <HBox.margin>
                                 <Insets left="14.0" />

@@ -2,7 +2,7 @@ package com.work.teammanagement.model.databases;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.work.teammanagement.model.users.LoggedInUser;
+import com.work.teammanagement.services.LoggedInUser;
 import com.work.teammanagement.exceptions.*;
 import com.work.teammanagement.model.requests.employee.EmployeeRequest;
 import org.jetbrains.annotations.NotNull;
@@ -13,6 +13,7 @@ import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public final class EmployeeRequestsDB {
     private static HashMap<String, ArrayList<EmployeeRequest>> employeeUsernameToRequests = new HashMap<>();
@@ -36,14 +37,38 @@ public final class EmployeeRequestsDB {
     }
 
     @NotNull
-    public static ArrayList<EmployeeRequest> getUserRequestsForManager(String otherUsername) throws UserNotFoundException, NotEnoughPrivilegesException, UserNotLoggedInException, ManagerMismatchException, NoEmployeeRequestsException {
-        UsersDB.verifyUsernameExists(otherUsername);
-        LoggedInUser.checkLoggedInAsManager();
-        LoggedInUser.checkAssignedManager(otherUsername);
+    public static ArrayList<EmployeeRequest> getUserRequests() throws UserNotFoundException, UserNotLoggedInException, ManagerMismatchException, NoEmployeeRequestsException, ManagerCannotHaveRequestsException, NotEnoughPrivilegesException {
+        String employeeUsername = LoggedInUser.getEmployeeUsername();
+        LoggedInUser.checkAssignedManager(employeeUsername);
 
-        ArrayList<EmployeeRequest> employeeRequests = employeeUsernameToRequests.get(otherUsername);
+        ArrayList<EmployeeRequest> employeeRequests = employeeUsernameToRequests.get(employeeUsername);
         if (employeeRequests == null)
-            throw new NoEmployeeRequestsException(otherUsername);
+            throw new NoEmployeeRequestsException(employeeUsername);
+        return employeeRequests;
+    }
+
+    @NotNull
+    public static ArrayList<EmployeeRequest> getUserRequests(String employeeUsername) throws UserNotFoundException, UserNotLoggedInException, ManagerMismatchException, NoEmployeeRequestsException, ManagerCannotHaveRequestsException, NotEnoughPrivilegesException, NotEmployeeException {
+        UsersDB.checkIsEmployee(employeeUsername);
+        LoggedInUser.checkAssignedManager(employeeUsername);
+
+        ArrayList<EmployeeRequest> employeeRequests = employeeUsernameToRequests.get(employeeUsername);
+        if (employeeRequests == null)
+            throw new NoEmployeeRequestsException(employeeUsername);
+        return employeeRequests;
+    }
+
+    @NotNull
+    public static ArrayList<EmployeeRequest> getAllUserRequestsForManager() throws UserNotFoundException, NotEnoughPrivilegesException, UserNotLoggedInException, ManagerMismatchException, NoEmployeeRequestsException {
+        LoggedInUser.checkLoggedInAsManager();
+
+        ArrayList<EmployeeRequest> employeeRequests = new ArrayList<>();
+        for (Map.Entry<String, ArrayList<EmployeeRequest>> entry : employeeUsernameToRequests.entrySet()) {
+            if (entry.getValue() != null && entry.getValue().size() > 0 && entry.getValue().get(0).getManagerUserName().equals(LoggedInUser.getManagerUsername())) {
+                employeeRequests.addAll(entry.getValue());
+            }
+        }
+
         return employeeRequests;
     }
 
