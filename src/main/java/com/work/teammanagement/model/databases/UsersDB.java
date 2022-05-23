@@ -3,6 +3,7 @@ package com.work.teammanagement.model.databases;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.work.teammanagement.exceptions.*;
+import com.work.teammanagement.model.users.LoggedInUser;
 import com.work.teammanagement.model.users.User;
 import com.work.teammanagement.model.users.UserRole;
 
@@ -27,6 +28,10 @@ public final class UsersDB {
     public static void addToDB(String username, String password, UserRole role, String managerUsername, String fullName, String address,
                                String phone) throws UsernameAlreadyExistsException {
         addToDB(new User(username, password, role, managerUsername, fullName, address, phone));
+    }
+
+    public static int getAvailableHolidayDays() throws ManagerCannotHaveRequestsException, UserNotLoggedInException {
+        return LoggedInUser.getEmployeeAvailableHolidayDays();
     }
 
     private static void verifyUsernameDoesNotExist(String username) throws UsernameAlreadyExistsException {
